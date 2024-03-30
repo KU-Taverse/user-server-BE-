@@ -1,8 +1,10 @@
 package ku.user.user.infrastructure;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "users")
 public class UserEntity {
     @Id
