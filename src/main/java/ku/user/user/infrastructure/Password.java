@@ -10,7 +10,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Embeddable
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Password {
     private String password;
