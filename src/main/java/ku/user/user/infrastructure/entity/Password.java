@@ -1,4 +1,4 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.entity;
 
 import jakarta.persistence.Embeddable;
 import ku.user.user.infrastructure.exception.InvalidPasswordException;

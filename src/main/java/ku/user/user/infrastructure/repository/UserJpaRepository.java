@@ -1,6 +1,6 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.repository;
 
-import org.apache.catalina.User;
+import ku.user.user.infrastructure.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

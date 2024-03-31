@@ -1,4 +1,6 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.repository;
+
+import ku.user.user.infrastructure.entity.UserEntity;
 
 import java.util.Optional;
 

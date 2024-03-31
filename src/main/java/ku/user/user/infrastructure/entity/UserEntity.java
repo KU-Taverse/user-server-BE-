@@ -1,4 +1,4 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
