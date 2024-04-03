@@ -54,12 +54,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public UserEntity update(Long id, UpdateUser updateUserDto) {
-        return null;
+        UserEntity user = getById(id);
+        // 아직 만드는 중
+        user.setEmail(updateUserDto.getEmail());
+        user.setNickname(updateUserDto.getNickname());
+        userRepository.save(user);
+        return user;
     }
 
     @Override
     public void delete(Long id) {
-
+        // 인증해야지만 삭제하게 할 것인가?
     }
 }
