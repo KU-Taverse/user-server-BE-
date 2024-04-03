@@ -14,4 +14,8 @@ public interface UserRepository {
     UserEntity save(UserEntity userEntity);
 
     void delete(UserEntity userEntity);
+
+    boolean existEmail(String email);
+
+    boolean existNickname(String nickname);
 }

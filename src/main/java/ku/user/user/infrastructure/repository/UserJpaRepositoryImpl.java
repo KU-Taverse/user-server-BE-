@@ -32,6 +32,16 @@ public class UserJpaRepositoryImpl implements UserRepository{
     }
 
     @Override
+    public boolean existEmail(String email) {
+        return userJpaRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existNickname(String nickname) {
+        return userJpaRepository.existsByNickname(nickname);
+    }
+
+    @Override
     public void delete(UserEntity userEntity) {
         userJpaRepository.delete(userEntity);
     }
