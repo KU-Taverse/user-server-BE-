@@ -44,4 +44,14 @@ public class FakeUserRepository implements UserRepository {
     public void delete(UserEntity userEntity) {
 
     }
+
+    @Override
+    public boolean existEmail(String email) {
+        return data.stream().anyMatch(item -> item.getEmail().equals(email));
+    }
+
+    @Override
+    public boolean existNickname(String nickname) {
+        return data.stream().anyMatch(item -> item.getNickname().equals(nickname));
+    }
 }
