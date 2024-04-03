@@ -1,5 +1,6 @@
 package ku.user.user.infrastructure;
 
+import ku.user.user.infrastructure.entity.Password;
 import ku.user.user.infrastructure.exception.InvalidPasswordException;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,14 +1,14 @@
 package ku.user.user.service;
 
 import ku.user.user.domain.CreateUser;
-import ku.user.user.infrastructure.entity.Password;
 import ku.user.user.infrastructure.entity.UserEntity;
 import ku.user.user.infrastructure.entity.UserStatus;
+import ku.user.user.infrastructure.exception.InvalidPasswordException;
 import ku.user.user.infrastructure.repository.UserRepository;
 import ku.user.user.mock.FakeUserRepository;
+import ku.user.user.service.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Repository;
 
 import java.time.Clock;
 
@@ -46,7 +46,66 @@ class UserServiceImplTest {
         assertThat(result.getEmail()).isEqualTo("rhkddlf7911@naver.com");
         assertThat(result.getNickname()).isEqualTo("kamothi");
         assertThat(result.getPassword().isMatched("1234")).isTrue();
+    }
 
+    @Test
+    void 이미_유저가_존재하면_예외를_던진다(){
+        // given
+        CreateUser userCreate = CreateUser.builder()
+                .email("rhkddlf7911@naver.com")
+                .password("1234")
+                .nickname("kamothi")
+                .build();
+        // when
+        UserEntity result = userService.create(userCreate);
+
+        // then
+
+    }
+
+    @Test
+    void getById로_user를_가져올_수_있다() {
+        // given
+
+        // when
+        UserEntity result = userService.getById(1L);
+
+        // then
+        assertThat(result.getNickname()).isEqualTo("kamothi");
+    }
+
+    @Test
+    void getById로_user를_가져올_때_없으면_예외를_던진다() {
+        // given
+
+        // when
+        assertThrows(ResourceNotFoundException.class, () -> {
+            userService.getById(2L);
+        });
+        // then
+    }
+
+    @Test
+    void getByEmail로_user를_가져올_수_있다() {
+        // given
+        String email = "rhkddlf7911@naver.com";
+
+        // when
+        UserEntity result = userService.getByEmail(email);
+
+        // then
+        assertThat(result.getNickname()).isEqualTo("kamothi");
+    }
+
+    @Test
+    void getByEmail로_user를_가져올_때_없으면_예외를_던진다() {
+        // given
+
+        // when
+        assertThrows(ResourceNotFoundException.class, () -> {
+            userService.getByEmail("kamothi@naver.com");
+        });
+        // then
     }
 
 }

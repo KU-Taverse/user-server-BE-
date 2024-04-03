@@ -11,12 +11,12 @@ public class FakeUserRepository implements UserRepository {
     private final List<UserEntity> data = Collections.synchronizedList(new ArrayList<>());
     @Override
     public Optional<UserEntity> findById(Long id) {
-        return Optional.empty();
+        return data.stream().filter(item -> item.getId().equals(id)).findFirst();
     }
 
     @Override
     public Optional<UserEntity> findByEmail(String email) {
-        return Optional.empty();
+        return data.stream().filter(item -> item.getEmail().equals(email)).findFirst();
     }
 
     @Override
