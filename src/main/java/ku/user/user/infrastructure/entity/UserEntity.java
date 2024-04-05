@@ -1,17 +1,16 @@
 package ku.user.user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Clock;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class UserEntity {
     @Id
