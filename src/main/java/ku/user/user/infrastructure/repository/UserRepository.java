@@ -1,4 +1,6 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.repository;
+
+import ku.user.user.infrastructure.entity.UserEntity;
 
 import java.util.Optional;
 
@@ -12,4 +14,8 @@ public interface UserRepository {
     UserEntity save(UserEntity userEntity);
 
     void delete(UserEntity userEntity);
+
+    boolean existEmail(String email);
+
+    boolean existNickname(String nickname);
 }

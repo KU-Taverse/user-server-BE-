@@ -1,5 +1,6 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.repository;
 
+import ku.user.user.infrastructure.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,16 @@ public class UserJpaRepositoryImpl implements UserRepository{
     @Override
     public UserEntity save(UserEntity userEntity) {
         return userJpaRepository.save(userEntity);
+    }
+
+    @Override
+    public boolean existEmail(String email) {
+        return userJpaRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existNickname(String nickname) {
+        return userJpaRepository.existsByNickname(nickname);
     }
 
     @Override

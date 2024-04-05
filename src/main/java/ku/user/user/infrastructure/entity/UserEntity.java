@@ -1,10 +1,17 @@
-package ku.user.user.infrastructure;
+package ku.user.user.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class UserEntity {
     @Id
@@ -26,4 +33,13 @@ public class UserEntity {
 
     @Column(name = "last_login_at")
     private Long lastLoginAt;
+
+    @Builder
+    public UserEntity(String email, String nickname, String password, Long id) {
+        this.id = id;
+        this.email = email;
+        this.nickname = nickname;
+        this.password = new Password(password, Clock.systemDefaultZone());
+        this.status = UserStatus.GENERAL;
+    }
 }
