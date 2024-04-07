@@ -38,7 +38,7 @@ public class UserEntity {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
-        this.password = new Password(password, Clock.systemDefaultZone());
+        this.password = password != null ? new Password(password, Clock.systemDefaultZone()) : new Password("",Clock.systemDefaultZone()); // 빈 문자열로 초기화
         this.status = UserStatus.GENERAL;
     }
 }
