@@ -31,13 +31,13 @@ public class OAuthAttributes {
 
         if(registrationId.equals("kakao")) return ofKakao(userNameAttributeName, attributes);
         if(registrationId.equals("google")) return ofGoogle(userNameAttributeName, attributes);
-        return null;
+        throw new UnsupportedRegistrationIdException("Unsupported registrationId: " + registrationId);
     }
 
     private static OAuthAttributes ofGoogle(String usernameAttributeName,
                                             Map<String, Object> attributes) {
         return OAuthAttributes.builder()
-                .name((String) attributes.get("properties"))
+                .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .attributes(attributes)
                 .nameAttributeKey(usernameAttributeName)
