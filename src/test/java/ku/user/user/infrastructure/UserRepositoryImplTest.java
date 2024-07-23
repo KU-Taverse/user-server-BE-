@@ -13,12 +13,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class UserJpaRepositoryImplTest {
+class UserRepositoryImplTest {
     @MockBean
     private UserJpaRepository userJpaRepository;
 
     @Autowired
-    public UserJpaRepositoryImplTest(UserJpaRepository userJpaRepository) {
+    public UserRepositoryImplTest(UserJpaRepository userJpaRepository) {
         this.userJpaRepository = userJpaRepository;
     }
 
@@ -26,7 +26,7 @@ class UserJpaRepositoryImplTest {
     public void findByIdTest() {
         // given
         Long userId = 1L;
-        UserEntity user = new UserEntity();
+        UserEntity user = UserEntity.createInstance();
         user.setId(userId);
 
         // when
@@ -41,7 +41,7 @@ class UserJpaRepositoryImplTest {
     @Test
     public void saveTest() {
         // given
-        UserEntity userToSave = new UserEntity();
+        UserEntity userToSave = UserEntity.createInstance();
         userToSave.setEmail("test@example.com");
         userToSave.setNickname("testuser");
 
@@ -58,7 +58,7 @@ class UserJpaRepositoryImplTest {
     @Test
     public void deleteTest() {
         // given
-        UserEntity userToDelete = new UserEntity();
+        UserEntity userToDelete = UserEntity.createInstance();
         userToDelete.setId(1L);
 
         // when
@@ -73,7 +73,7 @@ class UserJpaRepositoryImplTest {
     public void findByEmailTest() {
         // given
         String email = "test@example.com";
-        UserEntity user = new UserEntity();
+        UserEntity user = UserEntity.createInstance();
         user.setEmail(email);
 
         // when
@@ -91,7 +91,7 @@ class UserJpaRepositoryImplTest {
     public void findByNickname() {
         // given
         String nickname = "kamothi";
-        UserEntity user = new UserEntity();
+        UserEntity user = UserEntity.createInstance();
         user.setNickname(nickname);
 
         // when
