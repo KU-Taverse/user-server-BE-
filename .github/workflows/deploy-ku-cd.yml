@@ -28,13 +28,23 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
       - name: Build with Gradle Wrapper
+        env:
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          KAKAO_ID: ${{ secrets.KAKAO_ID }}
+          KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
         run: ./gradlew build
 
         # dockerfile을 통해 이미지를 빌드하고, 이를 docker repo로 push
       - name: Docker build & push to docker repo
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f ./infra/docker/Dockerfile -t ${{ secrets.DOCKER_REPO }} .
+          docker build \
+            --build-arg GOOGLE_ID=${{ secrets.GOOGLE_ID }} \
+            --build-arg GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }} \
+            --build-arg KAKAO_ID=${{ secrets.KAKAO_ID }} \
+            --build-arg KAKAO_SECRET=${{ secrets.KAKAO_SECRET }} \
+            -f ./infra/docker/Dockerfile -t ${{ secrets.DOCKER_REPO }} .
           docker push ${{ secrets.DOCKER_REPO }}
 
       # appleboy/ssh-action@master 액션을 사용하여 지정한 서버에 ssh로 접속하고, script를 실행합니다.
