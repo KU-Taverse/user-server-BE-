@@ -41,4 +41,8 @@ public class UserEntity {
         this.password = password != null ? new Password(password, Clock.systemDefaultZone()) : new Password("",Clock.systemDefaultZone()); // 빈 문자열로 초기화
         this.status = UserStatus.GENERAL;
     }
+
+    public static UserEntity createInstance() {
+        return new UserEntity();
+    }
 }

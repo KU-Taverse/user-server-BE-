@@ -36,18 +36,18 @@ class UserServiceImplTest {
     void create를_하면_유저가_생성된다(){
         // given
         CreateUser userCreate = CreateUser.builder()
-                .email("rhkddlf7911@naver.com")
-                .password("1234")
-                .nickname("kamothi")
+                .email("rhkddlf7911@aver.com")
+                .password("123")
+                .nickname("kamoth")
                 .build();
         // when
         UserEntity result = userService.create(userCreate);
 
         // then
         assertThat(result.getStatus()).isEqualTo(UserStatus.GENERAL);
-        assertThat(result.getEmail()).isEqualTo("rhkddlf7911@naver.com");
-        assertThat(result.getNickname()).isEqualTo("kamothi");
-        assertThat(result.getPassword().isMatched("1234")).isTrue();
+        assertThat(result.getEmail()).isEqualTo("rhkddlf7911@aver.com");
+        assertThat(result.getNickname()).isEqualTo("kamoth");
+        assertThat(result.getPassword().isMatched("123")).isTrue();
     }
 
     @Test
