@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-server
+  labels:
+    app: user-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-server
+  template:
+    metadata:
+      labels:
+        app: user-server
+    spec:
+      containers:
+        - name: user-server
+          image: kamothi/user:latest
+          ports:
+            - containerPort: 8000 # Discovery server의 기본 포트
+          env:
+            - name: GOOGLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-secrets
+                  key: GOOGLE_ID
+            - name: GOOGLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-secrets
+                  key: GOOGLE_SECRET
+            - name: KAKAO_ID
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-secrets
+                  key: KAKAO_ID
+            - name: KAKAO_SECRET
+              valueFrom:
+                 secretKeyRef:
+                  name: user-service-secrets
+                  key: KAKAO_SECRET
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-secrets
+                  key: SECRET
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-server
+spec:
+  selector:
+    app: user-server
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
