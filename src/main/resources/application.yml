@@ -1,6 +1,11 @@
 server:
   port: 8000
-
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-server.default.svc.cluster.local:8761/eureka
 spring:
   application:
     name: user-service
@@ -56,6 +61,9 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token # "토큰 받기" 항목
             user-info-uri: https://kapi.kakao.com/v2/user/me # "사용자 정보 가져오기" 항목
             user-name-attribute: id # 식별자 . 카카오의 경우 "id" 사용
+  cloud:
+    config:
+      enabled: false
 
 
 logging:
