@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.profiles.active=local")
 class UserRepositoryImplTest {
     @MockBean
     private UserJpaRepository userJpaRepository;
