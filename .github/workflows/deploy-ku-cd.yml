@@ -33,7 +33,7 @@ jobs:
           GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           KAKAO_ID: ${{ secrets.KAKAO_ID }}
           KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
-        run: /gradlew build -Pprofile=prod
+        run: ./gradlew build -Dspring.profiles.active=prod
 
         # dockerfile을 통해 이미지를 빌드하고, 이를 docker repo로 push
       - name: Docker build & push to docker repo
