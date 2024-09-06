@@ -32,7 +32,7 @@ jobs:
           GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           KAKAO_ID: ${{ secrets.KAKAO_ID }}
           KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
-        run: ./gradlew build -Dspring.profiles.active=local
+        run: ./gradlew build
 
       - name: Test with Gradle
         env:
@@ -40,7 +40,7 @@ jobs:
           GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           KAKAO_ID: ${{ secrets.KAKAO_ID }}
           KAKAO_SECRET: ${{ secrets.KAKAO_SECRET }}
-        run: ./gradlew test -Dspring.profiles.active=local
+        run: ./gradlew test
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
