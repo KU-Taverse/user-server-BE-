@@ -62,15 +62,12 @@ spring:
     config:
       enabled: false  # 로컬 환경에서 Config 서버 비활성화
 
-server:
-  port: 8000
-
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka  # 로컬에서의 eureka 설정
+    enabled: false  # 로컬 환경에서 Eureka 클라이언트 비활성화
+
+server:
+  port: 8000
 
 logging:
   level:
