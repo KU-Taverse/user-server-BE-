@@ -18,4 +18,4 @@ ENV KAKAO_ID=${KAKAO_ID}
 ENV KAKAO_SECRET=${KAKAO_SECRET}
 
 # 운영 및 개발에서 사용되는 환경 설정을 분리
-ENTRYPOINT ["java", "-jar", "/app.jar","--spring.profiles.active=local"]
+ENTRYPOINT ["java", "-jar", "/app.jar","--spring.profiles.active=prod"]
