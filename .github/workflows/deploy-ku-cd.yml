@@ -39,6 +39,7 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
+            --build-arg GIT_PASS=${{ secrets.MY_SECRET }} \
             -f ./infra/docker/Dockerfile \
             -t ${{ secrets.DOCKER_REPO }}:latest \
             --push \
