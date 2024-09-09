@@ -8,3 +8,6 @@ spring:
       name: user-service
       profile: prod
       enabled: true
+
+encrypt:
+  key: ${MY_SECRET}
