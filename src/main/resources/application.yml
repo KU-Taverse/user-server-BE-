@@ -85,3 +85,11 @@ management:
 token:
   expiration_time: 86400000
   secret: ${SECRET}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      gameService:
+        slidingWindowSize: 10  # 설정할 호출 수
+        failureRateThreshold: 50  # 실패율 50% 이상
+        waitDurationInOpenState: 30s  # Open 상태에서 대기 시간
