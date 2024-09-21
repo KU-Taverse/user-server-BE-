@@ -36,23 +36,16 @@ class GameServiceClientTest {
     }
 
     @Test
-    void CircuitBreaker가_OPEN일때_fallback이_호출된다() {
+    void CircuitBreaker가_실패_fallback이_호출된다() {
         // Given
         given(gameServiceClient.getGameResults(anyString()))
                 .willThrow(new RuntimeException("Service unavailable"));
 
-        // When
-        for (int i = 0; i < 10; i++) {
-            try {
-                testService.getResult("testUser");
-            } catch (RuntimeException e) {
-                // 예외를 무시하고 계속 호출
-            }
-        }
 
-        // Then
+        // When
         String result = testService.getResult("testUser");
 
+        // Then
         assertThat(result).isEqualTo("1234"); // Fallback 결과를 확인
     }
 
