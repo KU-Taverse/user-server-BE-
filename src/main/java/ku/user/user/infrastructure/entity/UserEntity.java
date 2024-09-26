@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Clock;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -31,13 +32,14 @@ public class UserEntity {
     private UserStatus status;
 
     @Column(name = "last_login_at")
-    private Long lastLoginAt;
+    LocalDateTime lastLoginAt;
 
     @Builder
-    public UserEntity(String email, String nickname, String password, Long id) {
+    public UserEntity(String email, String nickname, String password, Long id, LocalDateTime lastLoginAt) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
+        this.lastLoginAt = lastLoginAt;
         this.password = password != null ? new Password(password, Clock.systemDefaultZone()) : new Password("",Clock.systemDefaultZone()); // 빈 문자열로 초기화
         this.status = UserStatus.GENERAL;
     }
