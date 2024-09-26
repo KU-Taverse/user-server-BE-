@@ -1,7 +1,6 @@
-package msa.userserver.dto.response;
+package ku.user.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiResponse<T>{
     private Boolean isSuccess;

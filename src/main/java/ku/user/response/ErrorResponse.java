@@ -1,4 +1,4 @@
-package msa.userserver.dto.response;
+package ku.user.response;
 
 import lombok.Getter;
 
