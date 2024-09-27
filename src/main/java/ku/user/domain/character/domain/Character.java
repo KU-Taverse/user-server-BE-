@@ -33,4 +33,8 @@ public class Character {
         this.currentMoney = character.getCurrentMoney();
         return this;
     }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

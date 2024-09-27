@@ -1,6 +1,9 @@
 package ku.user.domain.character.controller;
 
+import ku.user.domain.character.domain.Character;
+import ku.user.domain.character.dto.request.SaveCharacterRequest;
 import ku.user.domain.character.dto.response.CheckCharacterExistResponse;
+import ku.user.domain.character.dto.response.SaveCharacterResponse;
 import ku.user.domain.character.service.CharacterService;
 import ku.user.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +23,11 @@ public class CharacterController {
     }
 
     @PostMapping("/characters")
-    public String saveCharacter() {
-        return "success";
+    public ApiResponse<SaveCharacterResponse> saveCharacter(@RequestBody SaveCharacterRequest saveCharacterRequest) {
+        Character character = SaveCharacterRequest.toEntity(saveCharacterRequest);
+        Character saveCharacter = characterService.saveByEmail(character, saveCharacterRequest.getEmail());
+        SaveCharacterResponse saveCharacterResponse = SaveCharacterResponse.toDto(saveCharacter);
+        return new ApiResponse<>(true, saveCharacterResponse, null);
     }
 
     @PostMapping("/characters/32")

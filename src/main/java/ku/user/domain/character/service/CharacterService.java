@@ -22,6 +22,13 @@ public class CharacterService {
         return characterRepository.save(character);
     }
 
+    @Transactional
+    public Character saveByEmail(Character character, String email) {
+        UserEntity userEntity = userService.getByEmail(email);
+        character.setUserId(userEntity.getId());
+        return save(character);
+    }
+
     @Transactional(readOnly = true)
     public Character findById(Long characterId) {
         Optional<Character> character = characterRepository.findById(characterId);
@@ -59,10 +66,10 @@ public class CharacterService {
     @Transactional(readOnly = true)
     public Boolean checkCharacterExistByEmail(String email) {
         UserEntity userEntity = userService.getByEmail(email);
-        try{
+        try {
             findByUserId(userEntity.getId());
             return true;
-        } catch (RuntimeException exception){
+        } catch (RuntimeException exception) {
             return false;
         }
     }
