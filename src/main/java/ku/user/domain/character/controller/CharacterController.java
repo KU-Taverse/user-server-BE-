@@ -3,6 +3,7 @@ package ku.user.domain.character.controller;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.dto.request.SaveCharacterRequest;
 import ku.user.domain.character.dto.response.CheckCharacterExistResponse;
+import ku.user.domain.character.dto.response.FindCharacterByEmailResponse;
 import ku.user.domain.character.dto.response.SaveCharacterResponse;
 import ku.user.domain.character.service.CharacterService;
 import ku.user.global.response.ApiResponse;
@@ -30,8 +31,12 @@ public class CharacterController {
         return new ApiResponse<>(true, saveCharacterResponse, null);
     }
 
-    @PostMapping("/characters/32")
-    public String getCharater() {
-        return "success";
+    @GetMapping("/characters")
+    public ApiResponse<FindCharacterByEmailResponse> findCharacterByEmail(@RequestParam() String email) {
+        Character character = characterService.findByEmail(email);
+        FindCharacterByEmailResponse findCharacterByEmailResponse = FindCharacterByEmailResponse.toDto(character);
+        return new ApiResponse<>(true, findCharacterByEmailResponse, null);
     }
+
+
 }

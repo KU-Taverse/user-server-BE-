@@ -45,6 +45,12 @@ public class CharacterService {
         return character.get();
     }
 
+    @Transactional
+    public Character findByEmail(String email) {
+        UserEntity userEntity = userService.getByEmail(email);
+        return findByUserId(userEntity.getId());
+    }
+
     /**
      * 이메일에 해당하는 유저 캐릭터 정보를 변경한다.
      *
@@ -53,8 +59,7 @@ public class CharacterService {
      */
     @Transactional
     public Character modifiedByEmail(String email, Character character) {
-        UserEntity userEntity = userService.getByEmail(email);
-        Character findCharacter = findByUserId(userEntity.getId());
+        Character findCharacter = findByEmail(email);
         return findCharacter.update(character);
     }
 
