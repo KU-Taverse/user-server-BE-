@@ -29,6 +29,7 @@ public class CharacterService {
             throw new RuntimeException("해당하는 유저가 없습니다");
         return character.get();
     }
+
     @Transactional(readOnly = true)
     public Character findByUserId(Long userId) {
         Optional<Character> character = characterRepository.findByUserId(userId);
@@ -39,6 +40,7 @@ public class CharacterService {
 
     /**
      * 이메일에 해당하는 유저 캐릭터 정보를 변경한다.
+     *
      * @param email 이메일
      * @return 변경된 유저 엔티티
      */
@@ -52,6 +54,17 @@ public class CharacterService {
     @Transactional
     public void delete(Long characterId) {
         characterRepository.delete(findById(characterId));
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean checkCharacterExistByEmail(String email) {
+        UserEntity userEntity = userService.getByEmail(email);
+        try{
+            findByUserId(userEntity.getId());
+            return true;
+        } catch (RuntimeException exception){
+            return false;
+        }
     }
 
 }
