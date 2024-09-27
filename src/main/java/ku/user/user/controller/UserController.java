@@ -2,6 +2,7 @@ package ku.user.user.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ku.user.response.ApiResponse;
 import ku.user.user.domain.CreateUser;
 import ku.user.user.infrastructure.entity.UserEntity;
 import ku.user.user.service.UserService;
@@ -23,10 +24,10 @@ public class UserController {
     }
 
     @PostMapping("/sign")
-    public ResponseEntity<UserEntity> sign(@RequestBody CreateUser createUser){
+    public ApiResponse<String> sign(@RequestBody CreateUser createUser){
         UserEntity userEntity = userService.create(createUser);
         log.info(userEntity.toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userEntity);
+        return new ApiResponse<>(true,"가입 성공하였습니다.",null);
     }
 
     @GetMapping("/success")

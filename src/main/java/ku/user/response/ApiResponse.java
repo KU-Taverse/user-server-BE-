@@ -13,16 +13,16 @@ public class ApiResponse<T>{
         this.errorResponse = errorResponse;
     }
 
-    @JsonInclude(JsonInclude.Include.ALWAYS)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIsSuccess() {
         return isSuccess;
     }
 
-    @JsonInclude(JsonInclude.Include.ALWAYS)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public T getResponse() {
         return response;
     }
-    @JsonInclude(JsonInclude.Include.ALWAYS)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ErrorResponse getErrorResponse() {
         return errorResponse;
     }
