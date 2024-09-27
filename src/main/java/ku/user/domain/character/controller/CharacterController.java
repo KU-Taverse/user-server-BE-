@@ -1,9 +1,11 @@
 package ku.user.domain.character.controller;
 
 import ku.user.domain.character.domain.Character;
+import ku.user.domain.character.dto.request.PutCharacterRequest;
 import ku.user.domain.character.dto.request.SaveCharacterRequest;
 import ku.user.domain.character.dto.response.CheckCharacterExistResponse;
 import ku.user.domain.character.dto.response.FindCharacterByEmailResponse;
+import ku.user.domain.character.dto.response.PutCharacterResponse;
 import ku.user.domain.character.dto.response.SaveCharacterResponse;
 import ku.user.domain.character.service.CharacterService;
 import ku.user.global.response.ApiResponse;
@@ -36,6 +38,14 @@ public class CharacterController {
         Character character = characterService.findByEmail(email);
         FindCharacterByEmailResponse findCharacterByEmailResponse = FindCharacterByEmailResponse.toDto(character);
         return new ApiResponse<>(true, findCharacterByEmailResponse, null);
+    }
+
+    @PutMapping("/characters")
+    public ApiResponse<PutCharacterResponse> modifyCharacter(@RequestBody PutCharacterRequest putCharacterRequest){
+        Character character = PutCharacterRequest.toEntity(putCharacterRequest);
+        Character modifiedCharacter = characterService.modifiedByEmail(putCharacterRequest.getEmail(), character);
+        PutCharacterResponse putCharacterResponse = PutCharacterResponse.toDto(modifiedCharacter);
+        return new ApiResponse<>(true, putCharacterResponse, null);
     }
 
 
