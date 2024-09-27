@@ -1,18 +1,16 @@
 package ku.user.user.service;
 
-import ku.user.user.domain.CreateUser;
-import ku.user.user.domain.UpdateUser;
-import ku.user.user.infrastructure.entity.UserEntity;
-import ku.user.user.infrastructure.entity.UserStatus;
-import ku.user.user.infrastructure.exception.InvalidPasswordException;
-import ku.user.user.infrastructure.repository.UserRepository;
+import ku.user.domain.user.domain.CreateUser;
+import ku.user.domain.user.domain.UpdateUser;
+import ku.user.domain.user.infrastructure.entity.UserEntity;
+import ku.user.domain.user.infrastructure.entity.UserStatus;
+import ku.user.domain.user.infrastructure.repository.UserRepository;
+import ku.user.domain.user.service.UserServiceImpl;
 import ku.user.user.mock.FakeUserRepository;
-import ku.user.user.service.exception.ResourceNotFoundException;
-import ku.user.user.service.exception.UserExistsException;
+import ku.user.domain.user.service.exception.ResourceNotFoundException;
+import ku.user.domain.user.service.exception.UserExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.Clock;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,7 @@
 package ku.user.user.infrastructure;
 
-import ku.user.user.infrastructure.entity.UserEntity;
-import ku.user.user.infrastructure.repository.UserJpaRepository;
+import ku.user.domain.user.infrastructure.entity.UserEntity;
+import ku.user.domain.user.infrastructure.repository.UserJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
