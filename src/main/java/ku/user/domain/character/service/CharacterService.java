@@ -68,6 +68,12 @@ public class CharacterService {
         characterRepository.delete(findById(characterId));
     }
 
+    @Transactional
+    public void deleteByEmail(String email){
+        Character character = findByEmail(email);
+        delete(character.getId());
+    }
+
     @Transactional(readOnly = true)
     public Boolean checkCharacterExistByEmail(String email) {
         UserEntity userEntity = userService.getByEmail(email);

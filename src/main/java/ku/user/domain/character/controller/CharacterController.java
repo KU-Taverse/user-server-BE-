@@ -3,10 +3,7 @@ package ku.user.domain.character.controller;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.dto.request.PutCharacterRequest;
 import ku.user.domain.character.dto.request.SaveCharacterRequest;
-import ku.user.domain.character.dto.response.CheckCharacterExistResponse;
-import ku.user.domain.character.dto.response.FindCharacterByEmailResponse;
-import ku.user.domain.character.dto.response.PutCharacterResponse;
-import ku.user.domain.character.dto.response.SaveCharacterResponse;
+import ku.user.domain.character.dto.response.*;
 import ku.user.domain.character.service.CharacterService;
 import ku.user.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +43,13 @@ public class CharacterController {
         Character modifiedCharacter = characterService.modifiedByEmail(putCharacterRequest.getEmail(), character);
         PutCharacterResponse putCharacterResponse = PutCharacterResponse.toDto(modifiedCharacter);
         return new ApiResponse<>(true, putCharacterResponse, null);
+    }
+
+    @DeleteMapping("/characters")
+    public ApiResponse<DeleteCharacterResponse> deleteCharacter(@RequestParam String email) {
+        characterService.deleteByEmail(email);
+        DeleteCharacterResponse deleteCharacterResponse = DeleteCharacterResponse.toDto(true);
+        return new ApiResponse<>(true, deleteCharacterResponse, null);
     }
 
 
