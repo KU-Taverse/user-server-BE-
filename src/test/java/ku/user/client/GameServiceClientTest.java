@@ -1,6 +1,7 @@
 package ku.user.client;
 
-import ku.user.user.service.TestService;
+import ku.user.domain.user.service.TestService;
+import ku.user.global.client.GameServiceClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

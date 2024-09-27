@@ -1,7 +1,7 @@
 package ku.user.user.mock;
 
-import ku.user.user.infrastructure.entity.UserEntity;
-import ku.user.user.infrastructure.repository.UserRepository;
+import ku.user.domain.user.infrastructure.entity.UserEntity;
+import ku.user.domain.user.infrastructure.repository.UserRepository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
