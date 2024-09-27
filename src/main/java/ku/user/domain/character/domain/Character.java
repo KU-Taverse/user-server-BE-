@@ -1,15 +1,13 @@
 package ku.user.domain.character.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Getter
 @Table(name = "characters")
 public class Character {
 
@@ -29,4 +27,10 @@ public class Character {
     @Builder.Default
     private int currentMoney = 0;
 
+    public Character update(Character character) {
+        this.nickname = character.getNickname();
+        this.characterType = character.getCharacterType();
+        this.currentMoney = character.getCurrentMoney();
+        return this;
+    }
 }
