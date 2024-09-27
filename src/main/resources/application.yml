@@ -8,7 +8,7 @@ spring:
 
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test  # 로컬에서 H2 메모리 DB 사용
+    url: jdbc:h2:mem:test  # 로컬에서 H2 메모리 DB 사용
     username: sa
     password:
 
@@ -22,7 +22,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create        # DB 초기화 전략
+      ddl-auto: update        # DB 초기화 전략
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
