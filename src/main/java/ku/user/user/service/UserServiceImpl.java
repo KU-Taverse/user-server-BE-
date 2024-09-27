@@ -3,23 +3,36 @@ package ku.user.user.service;
 import jakarta.transaction.Transactional;
 import ku.user.user.domain.CreateUser;
 import ku.user.user.domain.UpdateUser;
+import ku.user.user.domain.UserDto;
 import ku.user.user.infrastructure.entity.UserEntity;
 import ku.user.user.infrastructure.repository.UserRepository;
 import ku.user.user.service.exception.ResourceNotFoundException;
 import ku.user.user.service.exception.UserExistsException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        UserEntity user = userRepository.findByEmail(username).get();
+
+        if(user == null){
+            throw new UsernameNotFoundException(username);
+        }
+        // 마지막 어레이는 로그인 되었을 때 그 다음에 할 수 있는 작업에서의 권한 추가
+        return new User(user.getEmail(),user.getPassword().getPassword()
+                ,true,true,true,true,new ArrayList<>());
     }
 
     @Override
@@ -67,5 +80,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public void delete(Long id) {
         // 인증해야지만 삭제하게 할 것인가?
+    }
+
+    @Override
+    public UserDto getUserDetailsByEmail(String email) {
+        UserEntity user = userRepository.findByEmail(email).get();
+
+        if(user == null)
+            throw new UsernameNotFoundException(email);
+
+        return UserDto.from(user);
     }
 }

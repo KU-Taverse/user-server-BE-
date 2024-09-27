@@ -2,24 +2,18 @@ package ku.user.user.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ku.user.response.ApiResponse;
+import ku.user.user.domain.CreateUser;
 import ku.user.user.infrastructure.entity.UserEntity;
 import ku.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.http.HttpResponse;
-
-@Controller
+@RestController
 @Slf4j
-@RequestMapping("/login")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -27,6 +21,13 @@ public class UserController {
     @GetMapping("")
     public String loginView() {
         return "/login2";
+    }
+
+    @PostMapping("/sign")
+    public ApiResponse<String> sign(@RequestBody CreateUser createUser){
+        UserEntity userEntity = userService.create(createUser);
+        log.info(userEntity.toString());
+        return new ApiResponse<>(true,"가입 성공하였습니다.",null);
     }
 
     @GetMapping("/success")

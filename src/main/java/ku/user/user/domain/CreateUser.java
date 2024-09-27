@@ -3,6 +3,8 @@ package ku.user.user.domain;
 import ku.user.user.infrastructure.entity.UserEntity;
 import lombok.Builder;
 
+import java.time.LocalDateTime;
+
 public class CreateUser {
 
     private String email;
@@ -21,6 +23,7 @@ public class CreateUser {
                 .email(email)
                 .password(password)
                 .nickname(nickname)
+                .lastLoginAt(LocalDateTime.now())
                 .build();
     }
 }
