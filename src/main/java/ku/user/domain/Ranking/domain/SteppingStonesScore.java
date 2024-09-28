@@ -30,6 +30,7 @@ public class SteppingStonesScore {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status = Status.ACTIVE;
