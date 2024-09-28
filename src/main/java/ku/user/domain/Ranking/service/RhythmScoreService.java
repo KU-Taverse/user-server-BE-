@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RhythmScoreService {
     // 생성
-    RhythmScore saveScore();
+    RhythmScore saveScore(RhythmScore rhythmScore);
 
     // 조회(해당 캐릭터의 모든 기록)
     List<RhythmScore> findScoresByNickName(String nickName);
