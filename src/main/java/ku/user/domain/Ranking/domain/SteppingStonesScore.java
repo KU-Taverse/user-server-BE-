@@ -2,6 +2,7 @@ package ku.user.domain.Ranking.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -16,11 +17,20 @@ public class SteppingStonesScore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nickname", nullable = false, length = 50)
     private String nickName;
 
+    @Column(nullable = false)
     private int score;
 
+    @Column(nullable = false)
     private int coin;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status = Status.ACTIVE;
 }
