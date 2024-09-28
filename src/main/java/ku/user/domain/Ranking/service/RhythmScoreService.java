@@ -4,6 +4,7 @@ import ku.user.domain.Ranking.domain.RhythmScore;
 import ku.user.domain.Ranking.domain.Status;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RhythmScoreService {
@@ -14,7 +15,7 @@ public interface RhythmScoreService {
     List<RhythmScore> findScoresByNickName(String nickName);
 
     // 조회(해당 캐릭터의 특정 날짜 기록)
-    List<RhythmScore> findScoresByNickNameAndDate(String nickName, LocalDate date);
+    List<RhythmScore> findScoresByNickNameAndDate(String nickName, LocalDateTime startDate, LocalDateTime endDate);
 
     // 캐릭터 삭제
     void updateScoreStatus(String nickName);

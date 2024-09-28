@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,5 +16,5 @@ public interface SteppingScoreRepository extends JpaRepository<SteppingStonesSco
 
     Optional<SteppingStonesScore> findTopByNickNameOrderByScoreDesc(String nickName);
 
-    List<SteppingStonesScore> findByNickNameAndCreatedAtDate(String nickName, LocalDate date);
+    List<SteppingStonesScore> findByNickNameAndCreatedAtBetween(String nickName, LocalDateTime startDate, LocalDateTime endDate);
 }

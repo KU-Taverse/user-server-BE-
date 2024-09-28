@@ -3,6 +3,7 @@ package ku.user.domain.Ranking.dto.request;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import ku.user.domain.Ranking.domain.RhythmScore;
+import ku.user.domain.Ranking.domain.Status;
 import lombok.Getter;
 
 @Getter
@@ -18,6 +19,7 @@ public class SaveRhythmRequest {
         return RhythmScore.builder()
                 .nickName(saveRhythmRequest.getNickName())
                 .score(saveRhythmRequest.getScore())
+                .status(Status.ACTIVE)
                 .build();
 
     }

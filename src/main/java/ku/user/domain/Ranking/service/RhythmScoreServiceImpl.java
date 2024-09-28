@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,8 @@ public class RhythmScoreServiceImpl implements RhythmScoreService{
     }
 
 
-    public List<RhythmScore> findScoresByNickNameAndDate(String nickName, LocalDate date) {
-        return repository.findByNickNameAndCreatedAtDate(nickName, date);
+    public List<RhythmScore> findScoresByNickNameAndDate(String nickName, LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.findByNickNameAndCreatedAtBetween(nickName, startDate, endDate);
     }
 
     @Transactional

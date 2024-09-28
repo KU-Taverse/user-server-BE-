@@ -2,6 +2,7 @@ package ku.user.domain.Ranking.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import ku.user.domain.Ranking.domain.Status;
 import ku.user.domain.Ranking.domain.SteppingStonesScore;
 import lombok.Getter;
 
@@ -21,6 +22,7 @@ public class SaveSteppingRequest {
                 .nickName(saveSteppingRequest.getNickName())
                 .score(saveSteppingRequest.getScore())
                 .coin(saveSteppingRequest.getCoin())
+                .status(Status.ACTIVE)
                 .build();
 
     }

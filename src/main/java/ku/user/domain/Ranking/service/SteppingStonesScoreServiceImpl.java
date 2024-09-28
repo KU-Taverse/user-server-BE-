@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +27,8 @@ public class SteppingStonesScoreServiceImpl implements SteppingStonesScoreServic
     }
 
 
-    public List<SteppingStonesScore> findScoresByNickNameAndDate(String nickName, LocalDate date) {
-        return repository.findByNickNameAndCreatedAtDate(nickName, date);
+    public List<SteppingStonesScore> findScoresByNickNameAndDate(String nickName, LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.findByNickNameAndCreatedAtBetween(nickName, startDate, endDate);
     }
 
     @Transactional
