@@ -2,9 +2,11 @@ package ku.user.domain.character.service;
 
 import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
+import ku.user.domain.character.exception.CharacterCreateException;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +21,11 @@ public class CharacterService {
 
     @Transactional
     public Character save(Character character) {
-        return characterRepository.save(character);
+        try {
+            return characterRepository.save(character);
+        } catch (DataAccessException e) {
+            throw new CharacterCreateException();
+        }
     }
 
     @Transactional

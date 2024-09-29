@@ -26,4 +26,8 @@ public class ApiResponse<T>{
     public ErrorResponse getErrorResponse() {
         return errorResponse;
     }
+
+    public static <T> ApiResponse<T> fromError(ErrorResponse errorResponse) {
+        return new ApiResponse<>(false, null, errorResponse);
+    }
 }

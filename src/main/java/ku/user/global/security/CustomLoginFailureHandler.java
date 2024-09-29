@@ -64,7 +64,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
         response.setContentType("application/json"); // 응답 형식 설정 (예: 텍스트)
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ApiResponse<String> apiResponse = new ApiResponse<>(false, null, new ErrorResponse(errorMessage));
+        ApiResponse<String> apiResponse = new ApiResponse<>(false, null, ErrorResponse.of(errorMessage));
         Map<String, Object> errorMap = Collections.singletonMap("error", apiResponse);
         String jsonResponse = objectMapper.writeValueAsString(apiResponse);
         response.getWriter().write(jsonResponse); // 응답 본문에 에러 메시지 작성
