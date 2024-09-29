@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
         return responseException(ErrorCode.INTERNAL_SERVER_ERROR,ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),exception);
     }
     @ExceptionHandler(CustomException.class)
-    protected ResponseEntity<?> handleCustomException(CustomException exception) {
+    private ResponseEntity<?> handleCustomException(CustomException exception) {
         return responseException(exception.getErrorCode(),exception.getMessage(),exception);
     }
 
