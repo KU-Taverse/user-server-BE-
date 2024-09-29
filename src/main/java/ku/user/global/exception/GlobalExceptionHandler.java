@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
-    private ResponseEntity<?> handleRuntimeException(RuntimeException e) {
-        return responseException(ErrorCode.INTERNAL_SERVER_ERROR,e);
+    private ResponseEntity<?> handleRuntimeException(RuntimeException exception) {
+        return responseException(ErrorCode.INTERNAL_SERVER_ERROR,ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),exception);
+    }
+    @ExceptionHandler(CustomException.class)
+    protected ResponseEntity<?> handleCustomException(CustomException exception) {
+        return responseException(exception.getErrorCode(),exception.getMessage(),exception);
     }
 
-    private ResponseEntity<?> responseException(ErrorCode errorCode, Exception e) {
+    private ResponseEntity<?> responseException(ErrorCode errorCode,String message, Exception e) {
         log.error("{}: {} : {}", errorCode, errorCode.getMessage(), e.getMessage());
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode);
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode,message);
         ApiResponse<?> apiResponse = ApiResponse.fromError(errorResponse);
         return ResponseEntity
                 .status(errorCode.getHttpStatus())

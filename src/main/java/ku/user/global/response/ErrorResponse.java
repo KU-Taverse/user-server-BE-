@@ -17,10 +17,10 @@ public class ErrorResponse {
                 .build();
     }
 
-    public static ErrorResponse of(ErrorCode errorCode) {
+    public static ErrorResponse of(ErrorCode errorCode,String message) {
         return ErrorResponse.builder()
                 .code(errorCode.getCode())
-                .message(errorCode.getMessage())
+                .message(message)
                 .build();
     }
 }
