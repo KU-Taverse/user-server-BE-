@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,11 @@ public class QuestService {
         return questRepository.save(quest);
     }
 
+    @Transactional
+    public Quest findByUserId(Long userId){
+        return questRepository.findByUserId(userId).get();
+    }
+
     /**
      * 유저의 퀘스트를 조회한다.(가능하면 갱신한다)
      *
@@ -33,9 +39,13 @@ public class QuestService {
     @Transactional
     public Quest checkAndRefreshQuest(String email) {
         Long userId = userService.getByEmail(email).getId();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Optional<Quest> questOptional = questRepository.findQuestByUserIdAndCompletionDate(userId, localDateTime);
-        return questOptional.orElseGet(() -> createDailyQuest(userId));
+        LocalDate localDate = LocalDate.now();
+        Optional<Quest> questOptional = questRepository.findQuestByUserIdAndCompletionDate(userId, localDate);
+        if(questOptional.isEmpty()){
+            return createDailyQuest(userId);
+        }
+        return questOptional.get();
+        //return questOptional.orElseGet(() -> createDailyQuest(userId));
     }
 
     /**
@@ -49,4 +59,20 @@ public class QuestService {
         Quest quest = Quest.from(userId, randomQuestNumber);
         return save(quest);
     }
+
+    /**
+     * 퀘스트를 해결한다
+     * @param questIndex 퀘스트 번호
+     * @param email
+     * @return
+     */
+    @Transactional
+    public Quest solveQuestByEmail(Integer questIndex, String email) {
+        Long userId = userService.getByEmail(email).getId();
+        Quest findQuest = findByUserId(userId);
+        findQuest.solve(questIndex);
+        return findQuest;
+    }
+
+
 }
