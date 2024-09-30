@@ -15,8 +15,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SteppingStonesScoreServiceImpl implements SteppingStonesScoreService{
     private final SteppingScoreRepository repository;
+    private final RankingService rankingService;
     @Transactional
     public SteppingStonesScore saveScore(SteppingStonesScore steppingStonesScore) {
+        rankingService.updateScore(steppingStonesScore.getNickName(),steppingStonesScore.getCreatedAt(),"stepping_stones",steppingStonesScore.getScore());
         return repository.save(steppingStonesScore);
     }
 
