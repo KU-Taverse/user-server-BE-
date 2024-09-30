@@ -1,9 +1,7 @@
-package ku.user.domain.Ranking.service;
+package ku.user.domain.ranking.service;
 
-import ku.user.domain.Ranking.domain.RhythmScore;
-import ku.user.domain.Ranking.domain.Status;
+import ku.user.domain.ranking.domain.RhythmScore;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

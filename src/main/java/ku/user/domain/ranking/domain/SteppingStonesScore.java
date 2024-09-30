@@ -1,18 +1,18 @@
-package ku.user.domain.Ranking.domain;
+package ku.user.domain.ranking.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-// 점수, 캐릭터명, 날짜, 재화
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Getter
-@Table(name = "rhythm_scores")
-public class RhythmScore {
+@Table(name = "stepping_stones_score")
+public class SteppingStonesScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +23,9 @@ public class RhythmScore {
     @Column(nullable = false)
     private int score;
 
+    @Column(nullable = false)
+    private int coin;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -31,5 +34,4 @@ public class RhythmScore {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status = Status.ACTIVE;
-
 }

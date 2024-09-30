@@ -3,6 +3,11 @@ spring:
     activate:
       on-profile: local
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   application:
     name: user-service
 
@@ -73,6 +78,23 @@ logging:
   level:
     root: info
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+
 token:
   expiration_time: 86400000
-  secret: ${SECRET}
+  secret: Y2hvcHBhLWRvbnQtYml0ZS1tZS1zcHJpbmctYm9vdC1qd3QtdGVzdC1zZWNyZXQta2V5LWNob3BwYS1kb250LWJpdGUtbWUtc3ByaW5nLWJvb3Qtand0LXRlc3Qtc2VjcmV0LWtleQo=
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      gameService:
+        slidingWindowSize: 10  # 설정할 호출 수
+        failureRateThreshold: 50  # 실패율 50% 이상
+        waitDurationInOpenState: 30s  # Open 상태에서 대기 시간
