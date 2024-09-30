@@ -41,18 +41,7 @@ public class RhythmScoreController {
     public ApiResponse<List<GetRankingResponse>> showRanking() {
         ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
         // 랭킹 조회
-        Set<Object> ranking = rankingService.getTopRankers("rhythms", 100);
-        List<GetRankingResponse> response = new ArrayList<>();
-
-        if (ranking != null) {
-            for (Object o : ranking) {
-                String characterName = (String) o;  // userId로 캐스팅
-                Double score = zSetOperations.score("rhythms", characterName);
-
-                GetRankingResponse rankingDTO = new GetRankingResponse(characterName, score.intValue());
-                response.add(rankingDTO);
-            }
-        }
+        List<GetRankingResponse> response = rankingService.getTopRankers("rhythms", 100);
 
         return new ApiResponse<>(true, response, null);
     }

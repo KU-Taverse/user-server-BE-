@@ -39,18 +39,7 @@ public class SteppingStonesScoreController {
     public ApiResponse<List<GetRankingResponse>> showRanking() {
         ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
         // 랭킹 조회
-        Set<Object> ranking = rankingService.getTopRankers("stepping_stones", 100);
-        List<GetRankingResponse> response = new ArrayList<>();
-
-        if (ranking != null) {
-            for (Object o : ranking) {
-                String characterName = (String) o;  // userId로 캐스팅
-                Double score = zSetOperations.score("stepping_stones", characterName);
-
-                GetRankingResponse rankingDTO = new GetRankingResponse(characterName, score.intValue());
-                response.add(rankingDTO);
-            }
-        }
+        List<GetRankingResponse> response = rankingService.getTopRankers("stepping_stones", 100);
 
         return new ApiResponse<>(true, response, null);
     }
