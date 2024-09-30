@@ -1,9 +1,9 @@
-package ku.user.domain.Ranking.dto.request;
+package ku.user.domain.ranking.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import ku.user.domain.Ranking.domain.Status;
-import ku.user.domain.Ranking.domain.SteppingStonesScore;
+import ku.user.domain.ranking.domain.Status;
+import ku.user.domain.ranking.domain.SteppingStonesScore;
 import lombok.Getter;
 
 @Getter

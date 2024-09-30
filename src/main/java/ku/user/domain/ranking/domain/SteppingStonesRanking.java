@@ -1,4 +1,4 @@
-package ku.user.domain.Ranking.domain;
+package ku.user.domain.ranking.domain;
 
 public class SteppingStonesRanking {
 }

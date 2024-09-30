@@ -1,6 +1,6 @@
-package ku.user.domain.Ranking.service;
+package ku.user.domain.ranking.service;
 
-import ku.user.domain.Ranking.dto.response.GetRankingResponse;
+import ku.user.domain.ranking.dto.response.GetRankingResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

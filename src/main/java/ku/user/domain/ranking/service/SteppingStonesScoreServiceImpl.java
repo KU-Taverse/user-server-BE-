@@ -1,8 +1,8 @@
-package ku.user.domain.Ranking.service;
+package ku.user.domain.ranking.service;
 
-import ku.user.domain.Ranking.domain.Status;
-import ku.user.domain.Ranking.domain.SteppingStonesScore;
-import ku.user.domain.Ranking.infrastructure.SteppingScoreRepository;
+import ku.user.domain.ranking.domain.Status;
+import ku.user.domain.ranking.domain.SteppingStonesScore;
+import ku.user.domain.ranking.infrastructure.SteppingScoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

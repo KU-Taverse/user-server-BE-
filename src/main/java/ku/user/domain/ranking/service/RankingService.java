@@ -1,10 +1,9 @@
-package ku.user.domain.Ranking.service;
+package ku.user.domain.ranking.service;
 
-import ku.user.domain.Ranking.dto.response.GetRankingResponse;
+import ku.user.domain.ranking.dto.response.GetRankingResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 public interface RankingService {
     public void updateScore(String characterName, LocalDateTime createdAt, String gameKey, int newScore);

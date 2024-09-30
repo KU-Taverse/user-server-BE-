@@ -1,7 +1,6 @@
-package ku.user.domain.Ranking.dto.response;
+package ku.user.domain.ranking.dto.response;
 
-import ku.user.domain.Ranking.domain.RhythmScore;
-import ku.user.domain.Ranking.domain.SteppingStonesScore;
+import ku.user.domain.ranking.domain.RhythmScore;
 
 public record SaveRhythmResponse(Long id, String nickName, int score) {
     public static SaveRhythmResponse fromEntity(RhythmScore rhythmScore) {

@@ -1,4 +1,4 @@
-package ku.user.domain.Ranking.dto.response;
+package ku.user.domain.ranking.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
