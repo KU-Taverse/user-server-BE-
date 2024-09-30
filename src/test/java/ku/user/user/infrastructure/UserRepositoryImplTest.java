@@ -1,26 +1,25 @@
 package ku.user.user.infrastructure;
 
+import ku.user.UserApplication;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.infrastructure.repository.UserJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(properties = "spring.profiles.active=local")
+@SpringBootTest
+@ActiveProfiles("local")
 class UserRepositoryImplTest {
     @MockBean
     private UserJpaRepository userJpaRepository;
 
-    @Autowired
-    public UserRepositoryImplTest(UserJpaRepository userJpaRepository) {
-        this.userJpaRepository = userJpaRepository;
-    }
 
     @Test
     public void findByIdTest() {

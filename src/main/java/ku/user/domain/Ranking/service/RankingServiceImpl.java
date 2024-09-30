@@ -17,8 +17,6 @@ import java.util.Set;
 @Slf4j
 public class RankingServiceImpl implements RankingService{
     private final RedisTemplate<String, Object> redisTemplate;
-    private static final String GAME1_KEY = "rhythms";
-    private static final String GAME2_KEY = "stepping_stones";
 
     public void updateScore(String characterName, LocalDateTime createdAt, String gameKey, int newScore) {
         ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();

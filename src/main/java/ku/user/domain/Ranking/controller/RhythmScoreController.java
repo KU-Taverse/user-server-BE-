@@ -24,7 +24,6 @@ import java.util.Set;
 public class RhythmScoreController {
     private final RhythmScoreService rhythmScoreService;
     private final RankingService rankingService;
-    private final RedisTemplate<String, Object> redisTemplate;
 
     // 저장
     @PostMapping("/rhythms")
@@ -36,10 +35,8 @@ public class RhythmScoreController {
         return new ApiResponse<>(true, response, null);
     }
 
-    // 랭킹 보이기
     @GetMapping("/rhythms/ranking")
     public ApiResponse<List<GetRankingResponse>> showRanking() {
-        ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
         // 랭킹 조회
         List<GetRankingResponse> response = rankingService.getTopRankers("rhythms", 100);
 

@@ -24,7 +24,6 @@ import java.util.Set;
 public class SteppingStonesScoreController {
     private final SteppingStonesScoreService steppingStonesScoreService;
     private final RankingService rankingService;
-    private final RedisTemplate<String, Object> redisTemplate;
     // 저장
     @PostMapping("/stepping")
     public ApiResponse<SaveSteppingResponse> saveStepping(@RequestBody SaveSteppingRequest saveSteppingRequest){
@@ -37,7 +36,6 @@ public class SteppingStonesScoreController {
 
     @GetMapping("/stepping/ranking")
     public ApiResponse<List<GetRankingResponse>> showRanking() {
-        ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
         // 랭킹 조회
         List<GetRankingResponse> response = rankingService.getTopRankers("stepping_stones", 100);
 
