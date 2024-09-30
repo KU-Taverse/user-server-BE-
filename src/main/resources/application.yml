@@ -3,6 +3,11 @@ spring:
     activate:
       on-profile: local
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   application:
     name: user-service
 
@@ -89,7 +94,7 @@ management:
 
 token:
   expiration_time: 86400000
-  secret: ${SECRET}
+  secret: Y2hvcHBhLWRvbnQtYml0ZS1tZS1zcHJpbmctYm9vdC1qd3QtdGVzdC1zZWNyZXQta2V5LWNob3BwYS1kb250LWJpdGUtbWUtc3ByaW5nLWJvb3Qtand0LXRlc3Qtc2VjcmV0LWtleQo=
 
 resilience4j:
   circuitbreaker:

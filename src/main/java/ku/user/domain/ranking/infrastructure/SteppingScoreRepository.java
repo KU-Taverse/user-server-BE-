@@ -1,11 +1,9 @@
-package ku.user.domain.Ranking.infrastructure;
+package ku.user.domain.ranking.infrastructure;
 
-import ku.user.domain.Ranking.domain.RhythmScore;
-import ku.user.domain.Ranking.domain.SteppingStonesScore;
+import ku.user.domain.ranking.domain.SteppingStonesScore;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

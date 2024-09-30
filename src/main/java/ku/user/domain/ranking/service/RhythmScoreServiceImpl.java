@@ -1,13 +1,12 @@
-package ku.user.domain.Ranking.service;
+package ku.user.domain.ranking.service;
 
-import ku.user.domain.Ranking.domain.RhythmScore;
-import ku.user.domain.Ranking.domain.Status;
-import ku.user.domain.Ranking.infrastructure.RhythmScoreRepository;
+import ku.user.domain.ranking.domain.RhythmScore;
+import ku.user.domain.ranking.domain.Status;
+import ku.user.domain.ranking.infrastructure.RhythmScoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +15,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RhythmScoreServiceImpl implements RhythmScoreService{
     private final RhythmScoreRepository repository;
+    private final RankingService rankingService;
 
     @Transactional
     public RhythmScore saveScore(RhythmScore rhythmScore) {
+        rankingService.updateScore(rhythmScore.getNickName(),rhythmScore.getCreatedAt(),"rhythms",rhythmScore.getScore());
         return repository.save(rhythmScore);
     }
 

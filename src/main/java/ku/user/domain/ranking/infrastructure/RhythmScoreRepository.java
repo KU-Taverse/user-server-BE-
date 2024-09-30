@@ -1,6 +1,6 @@
-package ku.user.domain.Ranking.infrastructure;
+package ku.user.domain.ranking.infrastructure;
 
-import ku.user.domain.Ranking.domain.RhythmScore;
+import ku.user.domain.ranking.domain.RhythmScore;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
