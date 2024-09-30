@@ -6,6 +6,8 @@ import ku.user.domain.Ranking.domain.RhythmScore;
 import ku.user.domain.Ranking.domain.Status;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class SaveRhythmRequest {
     @NotBlank(message = "닉네임은 필수 항목")
@@ -20,6 +22,7 @@ public class SaveRhythmRequest {
                 .nickName(saveRhythmRequest.getNickName())
                 .score(saveRhythmRequest.getScore())
                 .status(Status.ACTIVE)
+                .createdAt(LocalDateTime.now())
                 .build();
 
     }
