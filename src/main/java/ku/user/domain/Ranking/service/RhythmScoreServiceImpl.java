@@ -16,9 +16,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RhythmScoreServiceImpl implements RhythmScoreService{
     private final RhythmScoreRepository repository;
+    private final RankingService rankingService;
 
     @Transactional
     public RhythmScore saveScore(RhythmScore rhythmScore) {
+        rankingService.updateScore(rhythmScore.getNickName(),rhythmScore.getCreatedAt(),"rhythms",rhythmScore.getScore());
         return repository.save(rhythmScore);
     }
 
