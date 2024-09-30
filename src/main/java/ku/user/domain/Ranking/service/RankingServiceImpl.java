@@ -1,6 +1,5 @@
 package ku.user.domain.Ranking.service;
 
-import ku.user.domain.Ranking.dto.response.GetRhythmRankingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
