@@ -3,6 +3,11 @@ spring:
     activate:
       on-profile: local
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   application:
     name: user-service
 
@@ -61,11 +66,6 @@ spring:
   cloud:
     config:
       enabled: false  # 로컬 환경에서 Config 서버 비활성화
-
-  data:
-    redis:
-      host: localhost
-      port: 6379
 
 eureka:
   client:
