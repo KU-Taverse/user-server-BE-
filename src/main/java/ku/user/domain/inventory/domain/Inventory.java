@@ -22,4 +22,10 @@ public class Inventory {
 
     @OneToMany(mappedBy = "inventory")
     private List<Item> itemList = new ArrayList<>();
+
+    public static Inventory from(Long userId) {
+        return Inventory.builder()
+                .userId(userId)
+                .build();
+    }
 }
