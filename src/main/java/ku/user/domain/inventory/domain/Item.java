@@ -20,4 +20,11 @@ public class Item {
     private Inventory inventory;
 
     private ItemType itemType;
+
+    public static Item from(Inventory inventory, ItemType itemType){
+        return Item.builder()
+                .itemType(itemType)
+                .inventory(inventory)
+                .build();
+    }
 }

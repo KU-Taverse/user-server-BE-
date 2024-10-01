@@ -3,6 +3,7 @@ package ku.user.domain.character.service;
 import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.exception.CharacterCreateException;
+import ku.user.domain.character.exception.CurrentMoneyLeakException;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -91,4 +92,13 @@ public class CharacterService {
         }
     }
 
+    @Transactional
+    public Character payPriceByEmail(String email, int price) {
+        Character character = findByEmail(email);
+        if (character.getCurrentMoney() < price) {
+            throw new CurrentMoneyLeakException();
+        }
+        character.pay(price);
+        return character;
+    }
 }

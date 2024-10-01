@@ -28,4 +28,8 @@ public class Inventory {
                 .userId(userId)
                 .build();
     }
+
+    public void addItem(Item item) {
+        itemList.add(item);
+    }
 }
