@@ -6,14 +6,16 @@ import lombok.Getter;
 public enum ItemType {
 
     //오로라
-    AURORA(1L),
+    AURORA(1L, 100),
     //킥보드
-    KICK_BOARD(2L),
+    KICK_BOARD(2L, 100),
     //칭호
-    TITLE(3L)
-    ;
+    TITLE(3L, 100);
     private Long itemNumber;
-    ItemType(Long itemNumber){
+    private int price;
+
+    ItemType(Long itemNumber, int price) {
         this.itemNumber = itemNumber;
+        this.price = price;
     }
 }
