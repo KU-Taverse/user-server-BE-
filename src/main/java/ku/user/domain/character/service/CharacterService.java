@@ -4,6 +4,8 @@ import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.exception.CharacterCreateException;
 import ku.user.domain.character.exception.CurrentMoneyLeakException;
+import ku.user.domain.inventory.dao.InventoryRepository;
+import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.service.InventoryService;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.service.UserService;
@@ -20,7 +22,7 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
     private final UserService userService;
-    private final InventoryService inventoryService;
+    private final InventoryRepository inventoryRepository;
 
     @Transactional
     public Character save(Character character) {
@@ -43,7 +45,10 @@ public class CharacterService {
         UserEntity userEntity = userService.getByEmail(email);
         character.setUserId(userEntity.getId());
         Character saveCharacter = save(character);
-        inventoryService.createInventoryByCharacterId(character.getId());
+
+        //순환 참조 문제로 다른 레포 접근
+        Inventory inventory = Inventory.from(character.getId());
+        inventoryRepository.save(inventory);
 
         return character;
     }
