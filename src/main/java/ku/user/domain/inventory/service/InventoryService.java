@@ -28,7 +28,7 @@ public class InventoryService {
     public Inventory findByCharacterId(Long characterId){
         Optional<Inventory> inventoryOptional = inventoryRepository.findByCharacterId(characterId);
         if(inventoryOptional.isEmpty())
-            throw new RuntimeException("해당하는 인벤토리가 없습니다. 회원가입된 아이디가 아닙니다.");
+            throw new RuntimeException("해당하는 인벤토리가 없습니다.");
         return inventoryOptional.get();
     }
 
