@@ -18,7 +18,7 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    private Long characterId;
 
     @OneToMany(mappedBy = "inventory")
     private List<Item> itemList = new ArrayList<>();
