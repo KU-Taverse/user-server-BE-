@@ -10,13 +10,13 @@ import java.util.List;
 /**
  * 아이템 추가 API Response
  * @param id
- * @param userId
+ * @param characterId
  * @param itemList
  * 아이템을 추가하지만 인밴토리를 반환한다.
  */
 @Builder
 public record PostItemResponse(Long id,
-                                   Long userId,
+                                   Long characterId,
                                    List<GetItemResponse> itemList) {
 
     public static PostItemResponse toDto(Inventory inventory) {
@@ -25,7 +25,7 @@ public record PostItemResponse(Long id,
 
         return PostItemResponse.builder()
                 .id(inventory.getId())
-                .userId(inventory.getUserId())
+                .characterId(inventory.getCharacterId())
                 .itemList(getItemResponseList)
                 .build();
 

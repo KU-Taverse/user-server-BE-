@@ -25,8 +25,8 @@ public class InventoryService {
 
 
     @Transactional
-    public Inventory findByUserId(Long userId){
-        Optional<Inventory> inventoryOptional = inventoryRepository.findByUserId(userId);
+    public Inventory findByCharacterId(Long characterId){
+        Optional<Inventory> inventoryOptional = inventoryRepository.findByCharacterId(characterId);
         if(inventoryOptional.isEmpty())
             throw new RuntimeException("해당하는 인벤토리가 없습니다. 회원가입된 아이디가 아닙니다.");
         return inventoryOptional.get();
@@ -55,7 +55,7 @@ public class InventoryService {
     }
 
     /**
-     * 유저 이메일에 대한 인벤토리를 찾는다.
+     * 유저 캐릭터에 대한 인벤토리를 찾는다.
      *
      * @param email 유저 이메일
      * @return 인벤토리
@@ -63,14 +63,12 @@ public class InventoryService {
     @Transactional(readOnly = true)
     public Inventory getInventoryByEmail(String email) {
 
-        Long userId = userService.getByEmail(email).getId();
-        Optional<Inventory> inventoryOptional = inventoryRepository.findByUserId(userId);
-
-        return inventoryOptional.get();
+        Character character = characterService.findByEmail(email);
+        return findByCharacterId(character.getId());
     }
 
     /**
-     * 이메일해당하는 유저가 아이템을 산다
+     * 이메일해당하는 유저의 캐릭터가 아이템을 산다
      * @param email
      * @param itemType
      * @return
@@ -78,10 +76,8 @@ public class InventoryService {
     @Transactional
     public Inventory buyItem(String email, ItemType itemType) {
         Character character = characterService.payPriceByEmail(email, itemType.getPrice());
-        Long userId = character.getUserId();
-        Inventory findInventory = findByUserId(userId);
-        Inventory updatInventory = addItem(findInventory, itemType);
-        return updatInventory;
+        Inventory findInventory = findByCharacterId(character.getId());
+        return addItem(findInventory, itemType);
     }
 
     /**

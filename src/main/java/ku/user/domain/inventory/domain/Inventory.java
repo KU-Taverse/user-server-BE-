@@ -21,6 +21,7 @@ public class Inventory {
     private Long characterId;
 
     @OneToMany(mappedBy = "inventory")
+    @Builder.Default
     private List<Item> itemList = new ArrayList<>();
 
     public static Inventory from(Long characterId) {
