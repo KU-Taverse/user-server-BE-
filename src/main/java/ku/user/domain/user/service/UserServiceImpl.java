@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService{
         if(userRepository.existNickname(userEntity.getNickname())) throw new UserExistsException("이미 존재하는 닉네임");
 
         // 여기에 나중에 인증 과정을 넣을 수도 있음.
-        UserEntity saveUserEntity = userRepository.save(userEntity);
-        return saveUserEntity;
+        userRepository.save(userEntity);
+        return userEntity;
     }
 
     @Override
