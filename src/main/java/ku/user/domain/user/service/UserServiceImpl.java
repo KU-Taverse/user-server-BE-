@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final InventoryRepository inventoryRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(username).get();
@@ -54,9 +53,7 @@ public class UserServiceImpl implements UserService{
 
         // 여기에 나중에 인증 과정을 넣을 수도 있음.
         UserEntity saveUserEntity = userRepository.save(userEntity);
-        Inventory inventory = Inventory.from(saveUserEntity.getId());
-        inventoryRepository.save(inventory);
-        return userEntity;
+        return saveUserEntity;
     }
 
     @Override
