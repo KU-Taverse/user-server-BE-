@@ -4,6 +4,7 @@ import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.exception.CharacterCreateException;
 import ku.user.domain.character.exception.CurrentMoneyLeakException;
+import ku.user.domain.inventory.service.InventoryService;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
     private final UserService userService;
+    private final InventoryService inventoryService;
 
     @Transactional
     public Character save(Character character) {
@@ -29,11 +31,21 @@ public class CharacterService {
         }
     }
 
+    /**
+     * 이에밀에 해당하는 유저의 캐릭터를 생성한다.
+     * 캐릭터에 해당하는 inventory를 조기화한다.
+     * @param character
+     * @param email
+     * @return
+     */
     @Transactional
     public Character saveByEmail(Character character, String email) {
         UserEntity userEntity = userService.getByEmail(email);
         character.setUserId(userEntity.getId());
-        return save(character);
+        Character saveCharacter = save(character);
+        inventoryService.createInventoryByCharacterId(character.getId());
+
+        return character;
     }
 
     @Transactional(readOnly = true)

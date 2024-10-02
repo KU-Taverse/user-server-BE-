@@ -45,12 +45,12 @@ public class InventoryService {
     /**
      * 유저가 생성될때, 인벤토리 엔티티를 추가한다.
      *
-     * @param userId 유저id
+     * @param characterId 유저 캐릭터 id
      * @return 생성된 인벤토리
      */
     @Transactional
-    public Inventory createInventory(Long userId) {
-        Inventory inventory = Inventory.from(userId);
+    public Inventory createInventoryByCharacterId(Long characterId) {
+        Inventory inventory = Inventory.from(characterId);
         return save(inventory);
     }
 
