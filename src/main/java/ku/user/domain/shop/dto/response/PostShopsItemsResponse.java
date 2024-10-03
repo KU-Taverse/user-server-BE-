@@ -7,7 +7,7 @@ import lombok.Builder;
 
 @Builder
 public record PostShopsItemsResponse(Long id,
-                                     Long name,
+                                     String name,
                                      String description,
                                      int price,
                                      int count) {

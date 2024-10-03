@@ -15,7 +15,7 @@ public class ShopItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long name;
+    private String name;
 
     private String description;
     private int price;

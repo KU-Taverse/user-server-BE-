@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Builder
 public record GetShopItemResponse(Long id,
-                                  Long name,
+                                  String name,
                                   String description,
                                   int price,
                                   int count) {
