@@ -37,4 +37,8 @@ public class Character {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    public void pay(int price) {
+        this.currentMoney -= price;
+    }
 }

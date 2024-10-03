@@ -3,6 +3,10 @@ package ku.user.domain.character.service;
 import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.exception.CharacterCreateException;
+import ku.user.domain.character.exception.CurrentMoneyLeakException;
+import ku.user.domain.inventory.dao.InventoryRepository;
+import ku.user.domain.inventory.domain.Inventory;
+import ku.user.domain.inventory.service.InventoryService;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
     private final UserService userService;
+    private final InventoryRepository inventoryRepository;
 
     @Transactional
     public Character save(Character character) {
@@ -28,11 +33,24 @@ public class CharacterService {
         }
     }
 
+    /**
+     * 이에밀에 해당하는 유저의 캐릭터를 생성한다.
+     * 캐릭터에 해당하는 inventory를 조기화한다.
+     * @param character
+     * @param email
+     * @return
+     */
     @Transactional
     public Character saveByEmail(Character character, String email) {
         UserEntity userEntity = userService.getByEmail(email);
         character.setUserId(userEntity.getId());
-        return save(character);
+        Character saveCharacter = save(character);
+
+        //순환 참조 문제로 다른 레포 접근
+        Inventory inventory = Inventory.from(character.getId());
+        inventoryRepository.save(inventory);
+
+        return character;
     }
 
     @Transactional(readOnly = true)
@@ -91,4 +109,13 @@ public class CharacterService {
         }
     }
 
+    @Transactional
+    public Character payPriceByEmail(String email, int price) {
+        Character character = findByEmail(email);
+        if (character.getCurrentMoney() < price) {
+            throw new CurrentMoneyLeakException();
+        }
+        character.pay(price);
+        return character;
+    }
 }

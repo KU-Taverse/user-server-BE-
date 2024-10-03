@@ -1,6 +1,8 @@
 package ku.user.domain.user.service;
 
 import jakarta.transaction.Transactional;
+import ku.user.domain.inventory.dao.InventoryRepository;
+import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.user.domain.CreateUser;
 import ku.user.domain.user.domain.UpdateUser;
 import ku.user.domain.user.domain.UserDto;
@@ -21,8 +23,8 @@ import java.util.ArrayList;
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(username).get();
@@ -35,6 +37,11 @@ public class UserServiceImpl implements UserService{
                 ,true,true,true,true,new ArrayList<>());
     }
 
+    /**
+     * 유저를 생성하고 인벤토리를 생성한다.
+     * @param createUserDto
+     * @return
+     */
     @Override
     @Transactional
     public UserEntity create(CreateUser createUserDto) {
