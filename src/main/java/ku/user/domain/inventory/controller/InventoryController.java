@@ -25,7 +25,7 @@ public class InventoryController {
 
     @PostMapping("/inventorys")
     public ApiResponse<PostItemResponse> PostItem(@RequestParam String email, @RequestBody PostItemRequest postItemRequest) {
-        Inventory inventory = inventoryService.buyItem(email, postItemRequest.getItemType());
+        Inventory inventory = inventoryService.buyItem(email, postItemRequest.getItemName());
         PostItemResponse postItemResponse = PostItemResponse.toDto(inventory);
         return new ApiResponse<>(true,postItemResponse,null);
     }

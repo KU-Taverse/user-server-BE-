@@ -70,11 +70,12 @@ public class InventoryService {
     /**
      * 이메일해당하는 유저의 캐릭터가 아이템을 산다
      * @param email
-     * @param itemType
+     * @param itemName 아이템 이름
      * @return
      */
     @Transactional
-    public Inventory buyItem(String email, ItemType itemType) {
+    public Inventory buyItem(String email, String itemName) {
+        ItemType itemType =ItemType.findItemTypeByName(itemName);
         Character character = characterService.payPriceByEmail(email, itemType.getPrice());
         Inventory findInventory = findByCharacterId(character.getId());
         return addItem(findInventory, itemType);

@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public record PostShopsItemsResponse(Long id,
                                      Long name,

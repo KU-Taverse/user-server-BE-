@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 public class PostItemRequest {
 
-    private ItemType itemType;
+    private String itemName;
 }
