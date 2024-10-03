@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
-public class Shop {
+public class ShopItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
