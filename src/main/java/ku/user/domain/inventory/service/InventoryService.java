@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,9 +26,9 @@ public class InventoryService {
 
 
     @Transactional
-    public Inventory findByCharacterId(Long characterId){
+    public Inventory findByCharacterId(Long characterId) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findByCharacterId(characterId);
-        if(inventoryOptional.isEmpty())
+        if (inventoryOptional.isEmpty())
             throw new RuntimeException("해당하는 인벤토리가 없습니다.");
         return inventoryOptional.get();
     }
@@ -67,8 +68,14 @@ public class InventoryService {
         return findByCharacterId(character.getId());
     }
 
+    @Transactional(readOnly = true)
+    public List<InventoryItem> getInventoryItemList(Long inventoryId) {
+        return inventoryItemRepository.findAllByInventoryId(inventoryId);
+    }
+
     /**
      * 이메일해당하는 유저의 캐릭터가 아이템을 산다
+     *
      * @param email
      * @param itemIndexId 아이템 indexId
      * @return
@@ -88,8 +95,9 @@ public class InventoryService {
 
     /**
      * 인벤토리에 아이템을 저장하고 추가한다.
+     *
      * @param findInventory 인벤토리
-     * @param item 추가할 아이템
+     * @param item          추가할 아이템
      * @return 인벤토리
      * 트랙잭션 전파를 사용한다.
      */

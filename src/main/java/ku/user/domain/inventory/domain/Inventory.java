@@ -20,6 +20,15 @@ public class Inventory {
 
     private Long characterId;
 
+    @Builder.Default
+    private int auraIndex = -1;
+
+    @Builder.Default
+    private int titleColorIndex = -1;
+
+    @Builder.Default
+    private int titleBackgroundIndex = -1;
+
 //    @OneToMany(mappedBy = "inventory")
 //    @Builder.Default
 //    private List<InventoryItem> itemList = new ArrayList<>();
