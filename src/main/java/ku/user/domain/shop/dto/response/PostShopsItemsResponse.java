@@ -1,8 +1,6 @@
 package ku.user.domain.shop.dto.response;
 
-import ku.user.domain.shop.domain.ShopItem;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import ku.user.domain.shop.domain.Item;
 import lombok.Builder;
 
 @Builder
@@ -12,7 +10,7 @@ public record PostShopsItemsResponse(Long id,
                                      int price,
                                      int count) {
 
-    public static PostShopsItemsResponse toDto(ShopItem shopItem) {
+    public static PostShopsItemsResponse toDto(Item shopItem) {
         return PostShopsItemsResponse.builder()
                 .id(shopItem.getId())
                 .name(shopItem.getName())

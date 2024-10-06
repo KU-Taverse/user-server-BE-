@@ -1,15 +1,16 @@
 package ku.user.domain.inventory.domain;
 
 import jakarta.persistence.*;
+import ku.user.domain.shop.domain.Item;
 import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "items")
+@Table(name = "inventorys_items")
 @Builder
 @Getter
-public class Item {
+public class InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +20,11 @@ public class Item {
     @JoinColumn(name = "item_id")
     private Inventory inventory;
 
-    private ItemType itemType;
+    @ManyToOne
+    private Item item;
 
-    public static Item from(Inventory inventory, ItemType itemType){
-        return Item.builder()
+    public static InventoryItem from(Inventory inventory, ItemType itemType){
+        return InventoryItem.builder()
                 .itemType(itemType)
                 .inventory(inventory)
                 .build();

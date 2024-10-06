@@ -1,6 +1,6 @@
 package ku.user.domain.shop.controller;
 
-import ku.user.domain.shop.domain.ShopItem;
+import ku.user.domain.shop.domain.Item;
 import ku.user.domain.shop.dto.request.PostShopsItemsRequest;
 import ku.user.domain.shop.dto.response.GetShopItemResponse;
 import ku.user.domain.shop.dto.response.PostShopsItemsResponse;
@@ -22,14 +22,14 @@ public class ShopItemController {
 
     @GetMapping("/shops/items")
     public ApiResponse<List<GetShopItemResponse>> getShopList() {
-        List<ShopItem> shopItemList = shopItemService.findAll();
+        List<Item> shopItemList = shopItemService.findAll();
         return new ApiResponse<>(true, shopItemList.stream().map(GetShopItemResponse::toDto).toList(), null);
     }
 
     @PostMapping("/shops/items")
     public ApiResponse<PostShopsItemsResponse> addShopItem(@RequestBody PostShopsItemsRequest postShopsItemsRequest){
-        ShopItem shopItem = PostShopsItemsRequest.toEntity(postShopsItemsRequest);
-        ShopItem saveShopItem = shopItemService.addShopItem(shopItem);
+        Item shopItem = PostShopsItemsRequest.toEntity(postShopsItemsRequest);
+        Item saveShopItem = shopItemService.addShopItem(shopItem);
         return new ApiResponse<>(true, PostShopsItemsResponse.toDto(saveShopItem), null);
     }
 }

@@ -5,7 +5,7 @@ import ku.user.domain.character.service.CharacterService;
 import ku.user.domain.inventory.dao.InventoryRepository;
 import ku.user.domain.inventory.dao.ItemRepository;
 import ku.user.domain.inventory.domain.Inventory;
-import ku.user.domain.inventory.domain.Item;
+import ku.user.domain.inventory.domain.InventoryItem;
 import ku.user.domain.inventory.domain.ItemType;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class InventoryService {
     }
 
     @Transactional
-    public Item saveItem(Item item) {
+    public InventoryItem saveItem(InventoryItem item) {
         return itemRepository.save(item);
     }
 
@@ -89,8 +89,8 @@ public class InventoryService {
      * 트랙잭션 전파를 사용한다.
      */
     private Inventory addItem(Inventory findInventory, ItemType itemType) {
-        Item item = Item.from(findInventory, itemType);
-        Item saveItem = saveItem(item);
+        InventoryItem item = InventoryItem.from(findInventory, itemType);
+        InventoryItem saveItem = saveItem(item);
         findInventory.addItem(saveItem);
         return findInventory;
     }

@@ -1,7 +1,6 @@
 package ku.user.domain.inventory.dto.response;
 
 import ku.user.domain.inventory.domain.Inventory;
-import ku.user.domain.inventory.domain.Item;
 import lombok.Builder;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package ku.user.domain.shop.dto.request;
 
-import ku.user.domain.shop.domain.ShopItem;
+import ku.user.domain.shop.domain.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +13,8 @@ public class PostShopsItemsRequest {
     private int price;
     private int count;
 
-    public static ShopItem toEntity(PostShopsItemsRequest postShopsItemsRequest) {
-        return ShopItem.builder()
+    public static Item toEntity(PostShopsItemsRequest postShopsItemsRequest) {
+        return Item.builder()
                 .name(postShopsItemsRequest.getName())
                 .description(postShopsItemsRequest.getDescription())
                 .price(postShopsItemsRequest.getPrice())

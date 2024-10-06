@@ -22,7 +22,7 @@ public class Inventory {
 
     @OneToMany(mappedBy = "inventory")
     @Builder.Default
-    private List<Item> itemList = new ArrayList<>();
+    private List<InventoryItem> itemList = new ArrayList<>();
 
     public static Inventory from(Long characterId) {
         return Inventory.builder()
@@ -30,7 +30,7 @@ public class Inventory {
                 .build();
     }
 
-    public void addItem(Item item) {
+    public void addItem(InventoryItem item) {
         itemList.add(item);
     }
 }

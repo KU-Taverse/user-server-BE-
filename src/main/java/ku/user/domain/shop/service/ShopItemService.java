@@ -1,7 +1,7 @@
 package ku.user.domain.shop.service;
 
 import ku.user.domain.shop.dao.ShopItemRepository;
-import ku.user.domain.shop.domain.ShopItem;
+import ku.user.domain.shop.domain.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +15,12 @@ public class ShopItemService {
     private final ShopItemRepository shopItemRepository;
 
     @Transactional(readOnly = true)
-    public List<ShopItem> findAll() {
+    public List<Item> findAll() {
         return shopItemRepository.findAll();
     }
 
     @Transactional
-    public ShopItem addShopItem(ShopItem shopItem) {
+    public Item addShopItem(Item shopItem) {
         return shopItemRepository.save(shopItem);
     }
 }
