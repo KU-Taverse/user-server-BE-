@@ -16,7 +16,7 @@ public record GetInventoryResponse(List<Long> itemList,
         //List<GetItemResponse> getItemResponseList = inventory.getItemList().stream().map(GetItemResponse::toDto).toList();
 
         return GetInventoryResponse.builder()
-                .itemList(inventoryItemList.stream().map(data->data.getItem().getIndexId()).toList())
+                .itemList(inventoryItemList.stream().map(data->data.getItem().getId()).toList())
                 .useItemList(List.of(inventory.getAuraIndex(),
                         inventory.getTitleColorIndex(),
                         inventory.getTitleBackgroundIndex()))

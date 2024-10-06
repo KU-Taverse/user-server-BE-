@@ -81,9 +81,10 @@ public class InventoryService {
      * @return
      */
     @Transactional
-    public Inventory buyItem(String email, Long itemIndexId) {
+    public Inventory buyItem(String email, Long itemId) {
         //아이템 id에 해당하는 아이템을 가져온다
-        Item findItem = itemService.findByIndexId(itemIndexId);
+        Item findItem = itemService.findById(itemId);
+        //TODO inventoryItemRepository.
         //캐릭터가 돈을 지불한다.
         Character character = characterService.payPriceByEmail(email, findItem.getPrice());
         //캐릭터가 소유한 인벤토리를 조회한다.

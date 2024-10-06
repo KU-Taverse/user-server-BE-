@@ -10,4 +10,6 @@ import java.util.List;
 public interface InventoryItemRepository extends JpaRepository<InventoryItem, Long> {
 
     List<InventoryItem> findAllByInventoryId(Long inventoryId);
+
+    //TODO boolean existsByInventoryIdAndU
 }
