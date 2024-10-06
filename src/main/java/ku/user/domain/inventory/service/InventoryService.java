@@ -6,6 +6,7 @@ import ku.user.domain.inventory.dao.InventoryRepository;
 import ku.user.domain.inventory.dao.InventoryItemRepository;
 import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.domain.InventoryItem;
+import ku.user.domain.inventory.exception.AlreadyPurchasedItemException;
 import ku.user.domain.shop.domain.Item;
 import ku.user.domain.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -77,18 +78,23 @@ public class InventoryService {
      * 이메일해당하는 유저의 캐릭터가 아이템을 산다
      *
      * @param email
-     * @param itemIndexId 아이템 indexId
+     * @param itemId 아이템 id
      * @return
      */
     @Transactional
     public Inventory buyItem(String email, Long itemId) {
         //아이템 id에 해당하는 아이템을 가져온다
         Item findItem = itemService.findById(itemId);
-        //TODO inventoryItemRepository.
+
         //캐릭터가 돈을 지불한다.
         Character character = characterService.payPriceByEmail(email, findItem.getPrice());
         //캐릭터가 소유한 인벤토리를 조회한다.
         Inventory findInventory = findByCharacterId(character.getId());
+
+        //이미 구매한 아이템일 경우 예외
+        if(inventoryItemRepository.existsByInventoryIdAndItemId(findInventory.getId(),itemId))
+            throw new AlreadyPurchasedItemException();
+
         //인벤토리에 아이템을 추가한다.
         addItem(findInventory, findItem);
         return findInventory;
