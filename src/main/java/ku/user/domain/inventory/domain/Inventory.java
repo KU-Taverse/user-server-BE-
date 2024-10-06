@@ -20,9 +20,9 @@ public class Inventory {
 
     private Long characterId;
 
-    @OneToMany(mappedBy = "inventory")
-    @Builder.Default
-    private List<InventoryItem> itemList = new ArrayList<>();
+//    @OneToMany(mappedBy = "inventory")
+//    @Builder.Default
+//    private List<InventoryItem> itemList = new ArrayList<>();
 
     public static Inventory from(Long characterId) {
         return Inventory.builder()
@@ -30,7 +30,7 @@ public class Inventory {
                 .build();
     }
 
-    public void addItem(InventoryItem item) {
+    /*public void addItem(InventoryItem item) {
         itemList.add(item);
-    }
+    }*/
 }

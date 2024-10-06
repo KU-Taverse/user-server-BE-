@@ -3,11 +3,11 @@ package ku.user.domain.inventory.service;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.service.CharacterService;
 import ku.user.domain.inventory.dao.InventoryRepository;
-import ku.user.domain.inventory.dao.ItemRepository;
+import ku.user.domain.inventory.dao.InventoryItemRepository;
 import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.domain.InventoryItem;
-import ku.user.domain.inventory.domain.ItemType;
-import ku.user.domain.user.service.UserService;
+import ku.user.domain.shop.domain.Item;
+import ku.user.domain.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +19,9 @@ import java.util.Optional;
 public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
-    private final ItemRepository itemRepository;
-    private final UserService userService;
+    private final InventoryItemRepository inventoryItemRepository;
     private final CharacterService characterService;
+    private final ItemService itemService;
 
 
     @Transactional
@@ -39,7 +39,7 @@ public class InventoryService {
 
     @Transactional
     public InventoryItem saveItem(InventoryItem item) {
-        return itemRepository.save(item);
+        return inventoryItemRepository.save(item);
     }
 
     /**
@@ -70,29 +70,32 @@ public class InventoryService {
     /**
      * 이메일해당하는 유저의 캐릭터가 아이템을 산다
      * @param email
-     * @param itemName 아이템 이름
+     * @param itemId 아이템 id
      * @return
      */
     @Transactional
-    public Inventory buyItem(String email, String itemName) {
-        ItemType itemType =ItemType.findItemTypeByName(itemName);
-        Character character = characterService.payPriceByEmail(email, itemType.getPrice());
+    public Inventory buyItem(String email, Long itemId) {
+        //아이템 id에 해당하는 아이템을 가져온다
+        Item findItem = itemService.findById(itemId);
+        //캐릭터가 돈을 지불한다.
+        Character character = characterService.payPriceByEmail(email, findItem.getPrice());
+        //캐릭터가 소유한 인벤토리를 조회한다.
         Inventory findInventory = findByCharacterId(character.getId());
-        return addItem(findInventory, itemType);
+        //인벤토리에 아이템을 추가한다.
+        addItem(findInventory, findItem);
+        return findInventory;
     }
 
     /**
      * 인벤토리에 아이템을 저장하고 추가한다.
      * @param findInventory 인벤토리
-     * @param itemType 추가할 아이템
+     * @param item 추가할 아이템
      * @return 인벤토리
      * 트랙잭션 전파를 사용한다.
      */
-    private Inventory addItem(Inventory findInventory, ItemType itemType) {
-        InventoryItem item = InventoryItem.from(findInventory, itemType);
-        InventoryItem saveItem = saveItem(item);
-        findInventory.addItem(saveItem);
-        return findInventory;
+    private void addItem(Inventory findInventory, Item item) {
+        InventoryItem inventoryItem = InventoryItem.from(findInventory, item);
+        saveItem(inventoryItem);
     }
 
 }

@@ -4,7 +4,7 @@ import ku.user.domain.shop.domain.Item;
 import ku.user.domain.shop.dto.request.PostShopsItemsRequest;
 import ku.user.domain.shop.dto.response.GetShopItemResponse;
 import ku.user.domain.shop.dto.response.PostShopsItemsResponse;
-import ku.user.domain.shop.service.ShopItemService;
+import ku.user.domain.shop.service.ItemService;
 import ku.user.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopItemController {
 
-    private final ShopItemService shopItemService;
+    private final ItemService shopItemService;
 
     @GetMapping("/shops/items")
     public ApiResponse<List<GetShopItemResponse>> getShopList() {

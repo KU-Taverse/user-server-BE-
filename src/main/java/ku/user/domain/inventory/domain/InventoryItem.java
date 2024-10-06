@@ -16,17 +16,19 @@ public class InventoryItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    //TODO 제거 했으면 좋겠다
+    /*@ManyToOne
     @JoinColumn(name = "item_id")
-    private Inventory inventory;
+    private Inventory inventory;*/
+    private Long inventoryId;
 
     @ManyToOne
     private Item item;
 
-    public static InventoryItem from(Inventory inventory, ItemType itemType){
+    public static InventoryItem from(Inventory inventory, Item item){
         return InventoryItem.builder()
-                .itemType(itemType)
-                .inventory(inventory)
+                .inventoryId(inventory.getId())
+                .item(item)
                 .build();
     }
 }
