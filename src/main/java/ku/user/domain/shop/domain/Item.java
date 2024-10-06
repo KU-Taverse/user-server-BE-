@@ -15,9 +15,15 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    private Long indexId;
+
     private String name;
 
+    private String itemGroup;
+
     private String description;
+
     private int price;
 
     private int count;

@@ -1,7 +1,6 @@
 package ku.user.domain.inventory.controller;
 
 import ku.user.domain.inventory.domain.Inventory;
-import ku.user.domain.inventory.domain.ItemType;
 import ku.user.domain.inventory.dto.request.PostItemRequest;
 import ku.user.domain.inventory.dto.response.GetInventoryResponse;
 import ku.user.domain.inventory.dto.response.PostItemResponse;
@@ -25,8 +24,8 @@ public class InventoryController {
 
     @PostMapping("/inventorys")
     public ApiResponse<PostItemResponse> PostItem(@RequestParam String email, @RequestBody PostItemRequest postItemRequest) {
-        Inventory inventory = inventoryService.buyItem(email, postItemRequest.getItemName());
+        Inventory inventory = inventoryService.buyItem(email, postItemRequest.getItemIndex());
         PostItemResponse postItemResponse = PostItemResponse.toDto(inventory);
-        return new ApiResponse<>(true,postItemResponse,null);
+        return new ApiResponse<>(true,null,null);
     }
 }

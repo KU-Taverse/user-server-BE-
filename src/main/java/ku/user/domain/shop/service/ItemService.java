@@ -27,6 +27,13 @@ public class ItemService {
             throw new RuntimeException("해당하는 아이템이 없습니다");
         return itemOptional.get();
     }
+    @Transactional(readOnly = true)
+    public Item findByIndexId(Long indexId){
+        Optional<Item> itemOptional = itemRepository.findByIndexId(indexId);
+        if(itemOptional.isEmpty())
+            throw new RuntimeException("해당하는 아이템이 없습니다");
+        return itemOptional.get();
+    }
     @Transactional
     public Item addShopItem(Item shopItem) {
         return itemRepository.save(shopItem);

@@ -6,18 +6,19 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
+//TODO
 public record GetInventoryResponse(Long id,
                                    Long characterId,
                                    List<GetItemResponse> itemList) {
 
     public static GetInventoryResponse toDto(Inventory inventory) {
 
-        List<GetItemResponse> getItemResponseList = inventory.getItemList().stream().map(GetItemResponse::toDto).toList();
+        //List<GetItemResponse> getItemResponseList = inventory.getItemList().stream().map(GetItemResponse::toDto).toList();
 
         return GetInventoryResponse.builder()
                 .id(inventory.getId())
                 .characterId(inventory.getCharacterId())
-                .itemList(getItemResponseList)
+                //.itemList(getItemResponseList)
                 .build();
 
     }
