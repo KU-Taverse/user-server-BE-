@@ -92,7 +92,7 @@ public class InventoryService {
         Inventory findInventory = findByCharacterId(character.getId());
 
         //이미 구매한 아이템일 경우 예외
-        if(inventoryItemRepository.existsByInventoryIdAndItemId(findInventory.getId(),itemId))
+        if (inventoryItemRepository.existsByInventoryIdAndItemId(findInventory.getId(), itemId))
             throw new AlreadyPurchasedItemException();
 
         //인벤토리에 아이템을 추가한다.
@@ -111,6 +111,13 @@ public class InventoryService {
     private void addItem(Inventory findInventory, Item item) {
         InventoryItem inventoryItem = InventoryItem.from(findInventory, item);
         saveItem(inventoryItem);
+    }
+
+    @Transactional
+    public Inventory enableItemsByEmail(List<Integer> itemList, String email) {
+        Inventory inventory = getInventoryByEmail(email);
+        inventory.enableItem(itemList);
+        return inventory;
     }
 
 }
