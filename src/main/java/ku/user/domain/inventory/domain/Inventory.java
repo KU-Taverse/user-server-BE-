@@ -20,9 +20,14 @@ public class Inventory {
 
     private Long characterId;
 
-    @OneToMany(mappedBy = "inventory")
     @Builder.Default
-    private List<Item> itemList = new ArrayList<>();
+    private Integer auraIndex = -1;
+
+    @Builder.Default
+    private Integer titleColorIndex = -1;
+
+    @Builder.Default
+    private Integer titleBackgroundIndex = -1;
 
     public static Inventory from(Long characterId) {
         return Inventory.builder()
@@ -30,7 +35,9 @@ public class Inventory {
                 .build();
     }
 
-    public void addItem(Item item) {
-        itemList.add(item);
+    public void enableItem(List<Integer> itemList) {
+        auraIndex = itemList.get(0);
+        titleColorIndex = itemList.get(1);
+        titleBackgroundIndex = itemList.get(2);
     }
 }

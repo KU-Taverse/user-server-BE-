@@ -1,24 +1,24 @@
 package ku.user.domain.inventory.dto.response;
 
 import ku.user.domain.inventory.domain.Inventory;
-import ku.user.domain.inventory.domain.Item;
+import ku.user.domain.inventory.domain.InventoryItem;
 import lombok.Builder;
 
 import java.util.List;
 
 @Builder
-public record GetInventoryResponse(Long id,
-                                   Long characterId,
-                                   List<GetItemResponse> itemList) {
 
-    public static GetInventoryResponse toDto(Inventory inventory) {
+public record GetInventoryResponse(List<Long> itemList,
+                                   List<Integer> useItemList) {
 
-        List<GetItemResponse> getItemResponseList = inventory.getItemList().stream().map(GetItemResponse::toDto).toList();
+    public static GetInventoryResponse toDto(Inventory inventory, List<InventoryItem> inventoryItemList) {
+
 
         return GetInventoryResponse.builder()
-                .id(inventory.getId())
-                .characterId(inventory.getCharacterId())
-                .itemList(getItemResponseList)
+                .itemList(inventoryItemList.stream().map(data->data.getItem().getId()).toList())
+                .useItemList(List.of(inventory.getAuraIndex(),
+                        inventory.getTitleColorIndex(),
+                        inventory.getTitleBackgroundIndex()))
                 .build();
 
     }

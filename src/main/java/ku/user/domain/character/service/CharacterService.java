@@ -44,6 +44,8 @@ public class CharacterService {
     public Character saveByEmail(Character character, String email) {
         UserEntity userEntity = userService.getByEmail(email);
         character.setUserId(userEntity.getId());
+        //TODO 추후 제거야하는 로직
+        character.gainMoney(10000);
         Character saveCharacter = save(character);
 
         //순환 참조 문제로 다른 레포 접근

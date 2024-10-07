@@ -41,4 +41,8 @@ public class Character {
     public void pay(int price) {
         this.currentMoney -= price;
     }
+
+    public void gainMoney(int price) {
+        this.currentMoney += price;
+    }
 }
