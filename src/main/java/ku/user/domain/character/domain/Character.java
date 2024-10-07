@@ -30,7 +30,6 @@ public class Character {
     public Character update(Character character) {
         this.nickname = character.getNickname();
         this.characterType = character.getCharacterType();
-        this.currentMoney = character.getCurrentMoney();
         return this;
     }
 
