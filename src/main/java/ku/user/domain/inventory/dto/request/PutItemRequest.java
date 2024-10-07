@@ -8,5 +8,5 @@ import java.util.List;
 public class PutItemRequest {
     //아이템 착용 API에 사용되는 request
 
-    private List<Integer> useItemList;
+    private List<Long> useItemList;
 }

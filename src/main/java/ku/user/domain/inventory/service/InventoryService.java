@@ -113,9 +113,19 @@ public class InventoryService {
         saveItem(inventoryItem);
     }
 
+    /**
+     * 아이템을 착용한다.
+     * @param itemList
+     * @param email
+     * @return
+     */
     @Transactional
-    public Inventory enableItemsByEmail(List<Integer> itemList, String email) {
+    public Inventory enableItemsByEmail(List<Long> itemList, String email) {
         Inventory inventory = getInventoryByEmail(email);
+        for (Long itemId : itemList) {
+            if(!inventoryItemRepository.existsByInventoryIdAndItemId(inventory.getId(), itemId))
+                throw new RuntimeException("구매한 상품이 아닙니다");
+        }
         inventory.enableItem(itemList);
         return inventory;
     }
