@@ -41,11 +41,7 @@ public class QuestService {
         Long userId = userService.getByEmail(email).getId();
         LocalDate localDate = LocalDate.now();
         Optional<Quest> questOptional = questRepository.findQuestByUserIdAndCompletionDate(userId, localDate);
-        if(questOptional.isEmpty()){
-            return createDailyQuest(userId);
-        }
-        return questOptional.get();
-        //return questOptional.orElseGet(() -> createDailyQuest(userId));
+        return questOptional.orElseGet(() -> createDailyQuest(userId));
     }
 
     /**
