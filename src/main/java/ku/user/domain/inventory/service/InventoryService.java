@@ -7,6 +7,7 @@ import ku.user.domain.inventory.dao.InventoryItemRepository;
 import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.domain.InventoryItem;
 import ku.user.domain.inventory.exception.AlreadyPurchasedItemException;
+import ku.user.domain.inventory.exception.NoPurchasedItemException;
 import ku.user.domain.shop.domain.Item;
 import ku.user.domain.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -123,8 +124,8 @@ public class InventoryService {
     public Inventory enableItemsByEmail(List<Long> itemList, String email) {
         Inventory inventory = getInventoryByEmail(email);
         for (Long itemId : itemList) {
-            if(!inventoryItemRepository.existsByInventoryIdAndItemId(inventory.getId(), itemId))
-                throw new RuntimeException("구매한 상품이 아닙니다");
+            if(!itemId.equals(-1L) && !inventoryItemRepository.existsByInventoryIdAndItemId(inventory.getId(), itemId))
+                throw new NoPurchasedItemException();
         }
         inventory.enableItem(itemList);
         return inventory;
