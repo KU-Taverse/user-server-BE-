@@ -21,13 +21,13 @@ public class Inventory {
     private Long characterId;
 
     @Builder.Default
-    private Integer auraIndex = -1;
+    private Long auraIndex = -1L;
 
     @Builder.Default
-    private Integer titleColorIndex = -1;
+    private Long titleColorIndex = -1L;
 
     @Builder.Default
-    private Integer titleBackgroundIndex = -1;
+    private Long titleBackgroundIndex = -1L;
 
     public static Inventory from(Long characterId) {
         return Inventory.builder()
@@ -35,7 +35,7 @@ public class Inventory {
                 .build();
     }
 
-    public void enableItem(List<Integer> itemList) {
+    public void enableItem(List<Long> itemList) {
         auraIndex = itemList.get(0);
         titleColorIndex = itemList.get(1);
         titleBackgroundIndex = itemList.get(2);

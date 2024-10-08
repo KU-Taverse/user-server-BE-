@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 
 public record GetInventoryResponse(List<Long> itemList,
-                                   List<Integer> useItemList) {
+                                   List<Long> useItemList) {
 
     public static GetInventoryResponse toDto(Inventory inventory, List<InventoryItem> inventoryItemList) {
 

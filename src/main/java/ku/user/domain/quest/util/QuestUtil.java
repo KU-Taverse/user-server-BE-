@@ -10,17 +10,17 @@ public class QuestUtil {
     private QuestUtil() {
     }
 
-    public static int QUEST_COUNT = 3;
+    public static int QUEST_COUNT = 7;
     private static final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public static Integer getRandomQuest() {
-        return random.nextInt(QUEST_COUNT);
+        return random.nextInt(QUEST_COUNT) + 1;
     }
 
-    public static List<Integer> getRandomQuests(int count) {
+    public static List<Integer> getRandomQuests(int selectCount) {
         Set<Integer> set = new HashSet<>();
-        while(set.size()<count){
-            Integer randomQuest = getRandomQuest() + 1;
+        while (set.size() < selectCount) {
+            Integer randomQuest = getRandomQuest();
             set.add(randomQuest);
         }
         return set.stream().toList();
