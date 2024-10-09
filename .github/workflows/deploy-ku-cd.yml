@@ -66,7 +66,7 @@ jobs:
               sudo docker rmi ${{ secrets.DOCKER_REPO }} || true
               # 새로운 이미지 풀 및 실행
               sudo docker pull ${{ secrets.DOCKER_REPO }}
-              sudo docker run -d --name user_app -p 8000:8000 ${{ secrets.DOCKER_REPO }}
+              sudo docker run -d --name user_app -v /var/log/user:/var/log/user -p 8000:8000 ${{ secrets.DOCKER_REPO }}
             EOF
 
       - name: Notify
