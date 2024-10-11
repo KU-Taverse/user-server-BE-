@@ -23,15 +23,18 @@ public class RankingServiceImpl implements RankingService{
 
         Double currentScore = zSetOperations.score(gameKey, characterName);
 
-        if (currentScore != null || newScore > currentScore) {
+        if (currentScore != null && newScore > currentScore) {
             zSetOperations.add(gameKey, characterName, newScore);
 
             String createdAtString = createdAt.toString();
             redisTemplate.opsForHash().put(gameKey + "date", characterName, createdAtString);
             return;
         }
+        if(currentScore != null && newScore < currentScore){
+            return;
+        }
 
-        zSetOperations.add(gameKey, characterName, currentScore);
+        zSetOperations.add(gameKey, characterName, newScore);
 
         String createdAtString = createdAt.toString();
         redisTemplate.opsForHash().put(gameKey + "date", characterName, createdAtString);
