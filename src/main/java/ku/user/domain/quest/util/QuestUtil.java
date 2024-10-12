@@ -14,7 +14,7 @@ public class QuestUtil {
     private static final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     public static Integer getRandomQuest() {
-        return random.nextInt(QUEST_COUNT) + 1;
+        return random.nextInt(QUEST_COUNT);
     }
 
     public static List<Integer> getRandomQuests(int selectCount) {
