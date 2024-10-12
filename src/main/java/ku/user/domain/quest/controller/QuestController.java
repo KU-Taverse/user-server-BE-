@@ -24,7 +24,7 @@ public class QuestController {
 
     @PostMapping("/quests")
     public ApiResponse<PostUserQuestResponse> solveQuest(@RequestParam String email, @RequestBody PostUserQuestRequest postUserQuestRequest) {
-        UserQuest userQuest = questService.solveQuestByEmail(postUserQuestRequest.getQuestIndex(), email);
+        UserQuest userQuest = questService.updateQuestProgress(postUserQuestRequest.getUserQuestMap(), email);
         PostUserQuestResponse postUserQuestResponse = PostUserQuestResponse.toDto(userQuest);
         return new ApiResponse<>(true, postUserQuestResponse, null);
     }

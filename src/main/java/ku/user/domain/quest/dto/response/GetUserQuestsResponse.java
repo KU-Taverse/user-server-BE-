@@ -5,12 +5,15 @@ import lombok.Builder;
 
 
 @Builder
-public record GetUserQuestsResponse (int firstQuestIndex,
-                                     int secondQuestIndex,
-                                     int thirdQuestIndex,
+public record GetUserQuestsResponse (Long firstQuestIndex,
+                                     Long secondQuestIndex,
+                                     Long thirdQuestIndex,
                                      Boolean firstQuestClear,
                                      Boolean secondQuestClear,
-                                     Boolean thirdQuestClear){
+                                     Boolean thirdQuestClear,
+                                     int firstQuestProgress,
+                                     int secondQuestProgress,
+                                     int thirdQuestProgress){
 
     public static GetUserQuestsResponse toDto(UserQuest quest){
         return GetUserQuestsResponse.builder()
@@ -20,6 +23,9 @@ public record GetUserQuestsResponse (int firstQuestIndex,
                 .firstQuestClear(quest.getQuest1CompletedAt() != null)
                 .secondQuestClear(quest.getQuest2CompletedAt() != null)
                 .thirdQuestClear(quest.getQuest3CompletedAt() != null)
+                .firstQuestProgress(quest.getQuest1Progress())
+                .secondQuestProgress(quest.getQuest2Progress())
+                .secondQuestProgress(quest.getQuest3Progress())
                 .build();
     }
 }

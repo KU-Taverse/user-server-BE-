@@ -2,6 +2,8 @@ package ku.user.domain.quest.dao;
 
 import ku.user.domain.quest.domain.Quest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface QuestRepository extends JpaRepository<Quest, String> {
+@Repository
+public interface QuestRepository extends JpaRepository<Quest, Long> {
 }

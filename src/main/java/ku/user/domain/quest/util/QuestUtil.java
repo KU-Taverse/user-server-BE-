@@ -17,10 +17,10 @@ public class QuestUtil {
         return random.nextInt(QUEST_COUNT);
     }
 
-    public static List<Integer> getRandomQuests(int selectCount) {
-        Set<Integer> set = new HashSet<>();
+    public static List<Long> getRandomQuests(int selectCount) {
+        Set<Long> set = new HashSet<>();
         while (set.size() < selectCount) {
-            Integer randomQuest = getRandomQuest();
+            Long randomQuest = getRandomQuest().longValue();
             set.add(randomQuest);
         }
         return set.stream().toList();

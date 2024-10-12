@@ -4,9 +4,9 @@ import ku.user.domain.quest.domain.UserQuest;
 import lombok.Builder;
 
 @Builder
-public record PostUserQuestResponse(int firstQuestIndex,
-                                    int secondQuestIndex,
-                                    int thirdQuestIndex,
+public record PostUserQuestResponse(Long firstQuestIndex,
+                                    Long secondQuestIndex,
+                                    Long thirdQuestIndex,
                                     Boolean firstQuestClear,
                                     Boolean secondQuestClear,
                                     Boolean thirdQuestClear) {
