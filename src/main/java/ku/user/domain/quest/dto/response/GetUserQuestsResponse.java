@@ -1,9 +1,7 @@
 package ku.user.domain.quest.dto.response;
 
-import ku.user.domain.quest.domain.Quest;
-import lombok.AllArgsConstructor;
+import ku.user.domain.quest.domain.UserQuest;
 import lombok.Builder;
-import lombok.Getter;
 
 
 @Builder
@@ -14,7 +12,7 @@ public record GetUserQuestsResponse (int firstQuestIndex,
                                      Boolean secondQuestClear,
                                      Boolean thirdQuestClear){
 
-    public static GetUserQuestsResponse toDto(Quest quest){
+    public static GetUserQuestsResponse toDto(UserQuest quest){
         return GetUserQuestsResponse.builder()
                 .firstQuestIndex(quest.getQuest1())
                 .secondQuestIndex(quest.getQuest2())

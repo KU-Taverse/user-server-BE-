@@ -1,7 +1,7 @@
 package ku.user.domain.quest.service;
 
-import ku.user.domain.quest.dao.QuestRepository;
-import ku.user.domain.quest.domain.Quest;
+import ku.user.domain.quest.dao.UserQuestRepository;
+import ku.user.domain.quest.domain.UserQuest;
 import ku.user.domain.quest.util.QuestUtil;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,17 +16,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestService {
 
-    private final QuestRepository questRepository;
+    private final UserQuestRepository userQuestRepository;
     private final UserService userService;
 
     @Transactional
-    public Quest save(Quest quest){
-        return questRepository.save(quest);
+    public UserQuest save(UserQuest quest){
+        return userQuestRepository.save(quest);
     }
 
     @Transactional
-    public Quest findByUserId(Long userId){
-        return questRepository.findByUserId(userId).get();
+    public UserQuest findByUserId(Long userId){
+        return userQuestRepository.findByUserId(userId).get();
     }
 
     /**
@@ -37,10 +36,10 @@ public class QuestService {
      * @return quest
      */
     @Transactional
-    public Quest checkAndRefreshQuest(String email) {
+    public UserQuest checkAndRefreshQuest(String email) {
         Long userId = userService.getByEmail(email).getId();
         LocalDate localDate = LocalDate.now();
-        Optional<Quest> questOptional = questRepository.findQuestByUserIdAndCompletionDate(userId, localDate);
+        Optional<UserQuest> questOptional = userQuestRepository.findQuestByUserIdAndCompletionDate(userId, localDate);
         return questOptional.orElseGet(() -> createDailyQuest(userId));
     }
 
@@ -50,9 +49,9 @@ public class QuestService {
      * @return quest
      */
     @Transactional
-    public Quest createDailyQuest(Long userId) {
+    public UserQuest createDailyQuest(Long userId) {
         List<Integer> randomQuestNumber = QuestUtil.getRandomQuests(3);
-        Quest quest = Quest.from(userId, randomQuestNumber);
+        UserQuest quest = UserQuest.from(userId, randomQuestNumber);
         return save(quest);
     }
 
@@ -63,9 +62,9 @@ public class QuestService {
      * @return
      */
     @Transactional
-    public Quest solveQuestByEmail(Integer questIndex, String email) {
+    public UserQuest solveQuestByEmail(Integer questIndex, String email) {
         Long userId = userService.getByEmail(email).getId();
-        Quest findQuest = findByUserId(userId);
+        UserQuest findQuest = findByUserId(userId);
         findQuest.solve(questIndex);
         return findQuest;
     }
