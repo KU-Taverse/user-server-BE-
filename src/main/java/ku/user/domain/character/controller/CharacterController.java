@@ -5,6 +5,8 @@ import ku.user.domain.character.dto.request.PutCharacterRequest;
 import ku.user.domain.character.dto.request.SaveCharacterRequest;
 import ku.user.domain.character.dto.response.*;
 import ku.user.domain.character.service.CharacterService;
+import ku.user.domain.inventory.domain.Inventory;
+import ku.user.domain.inventory.service.InventoryService;
 import ku.user.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class CharacterController {
 
     private final CharacterService characterService;
+    private final InventoryService inventoryService;
 
     @GetMapping("/characters/check")
     public ApiResponse<CheckCharacterExistResponse> checkCharacterExist(@RequestParam() String email) {
@@ -33,7 +36,8 @@ public class CharacterController {
     @GetMapping("/characters")
     public ApiResponse<FindCharacterByEmailResponse> findCharacterByEmail(@RequestParam() String email) {
         Character character = characterService.findByEmail(email);
-        FindCharacterByEmailResponse findCharacterByEmailResponse = FindCharacterByEmailResponse.toDto(character);
+        Inventory inventory = inventoryService.getInventoryByEmail(email);
+        FindCharacterByEmailResponse findCharacterByEmailResponse = FindCharacterByEmailResponse.toDto(inventory,character);
         return new ApiResponse<>(true, findCharacterByEmailResponse, null);
     }
 

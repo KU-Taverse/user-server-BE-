@@ -1,16 +1,16 @@
 package ku.user.domain.quest.dto.response;
 
-import ku.user.domain.quest.domain.Quest;
+import ku.user.domain.quest.domain.UserQuest;
 import lombok.Builder;
 
 @Builder
-public record PostUserQuestResponse(int firstQuestIndex,
-                                    int secondQuestIndex,
-                                    int thirdQuestIndex,
+public record PostUserQuestResponse(Long firstQuestIndex,
+                                    Long secondQuestIndex,
+                                    Long thirdQuestIndex,
                                     Boolean firstQuestClear,
                                     Boolean secondQuestClear,
                                     Boolean thirdQuestClear) {
-    public static PostUserQuestResponse toDto(Quest quest){
+    public static PostUserQuestResponse toDto(UserQuest quest){
         return PostUserQuestResponse.builder()
                 .firstQuestIndex(quest.getQuest1())
                 .secondQuestIndex(quest.getQuest2())

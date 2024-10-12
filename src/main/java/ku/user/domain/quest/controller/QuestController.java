@@ -1,7 +1,6 @@
 package ku.user.domain.quest.controller;
 
-import jakarta.ws.rs.PATCH;
-import ku.user.domain.quest.domain.Quest;
+import ku.user.domain.quest.domain.UserQuest;
 import ku.user.domain.quest.dto.request.PostUserQuestRequest;
 import ku.user.domain.quest.dto.response.GetUserQuestsResponse;
 import ku.user.domain.quest.dto.response.PostUserQuestResponse;
@@ -18,15 +17,15 @@ public class QuestController {
 
     @GetMapping("/quests")
     public ApiResponse<GetUserQuestsResponse> checkQuest(@RequestParam String email) {
-        Quest quest = questService.checkAndRefreshQuest(email);
-        GetUserQuestsResponse getUserQuestsResponse = GetUserQuestsResponse.toDto(quest);
+        UserQuest userQuest = questService.checkAndRefreshQuest(email);
+        GetUserQuestsResponse getUserQuestsResponse = GetUserQuestsResponse.toDto(userQuest);
         return new ApiResponse<>(true, getUserQuestsResponse, null);
     }
 
     @PostMapping("/quests")
     public ApiResponse<PostUserQuestResponse> solveQuest(@RequestParam String email, @RequestBody PostUserQuestRequest postUserQuestRequest) {
-        Quest quest = questService.solveQuestByEmail(postUserQuestRequest.getQuestIndex(), email);
-        PostUserQuestResponse postUserQuestResponse = PostUserQuestResponse.toDto(quest);
+        UserQuest userQuest = questService.updateQuestProgress(postUserQuestRequest.getUserQuestMap(), email);
+        PostUserQuestResponse postUserQuestResponse = PostUserQuestResponse.toDto(userQuest);
         return new ApiResponse<>(true, postUserQuestResponse, null);
     }
 
