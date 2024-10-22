@@ -2,8 +2,11 @@ package ku.user.domain.ranking.service;
 
 import ku.user.domain.ranking.dto.response.GetRankingResponse;
 import ku.user.domain.ranking.exception.RankingNotFoundException;
+import ku.user.domain.ranking.exception.RankingUpdateFailException;
+import ku.user.domain.ranking.exception.RedisConnectionFailException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -20,29 +23,36 @@ public class RankingServiceImpl implements RankingService{
     private final RedisTemplate<String, Object> redisTemplate;
 
     public void updateScore(String characterName, LocalDateTime createdAt, String gameKey, int newScore) {
-        ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
+        try{
+            ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
 
-        Double currentScore = zSetOperations.score(gameKey, characterName);
+            Double currentScore = zSetOperations.score(gameKey, characterName);
 
-        if (characterName == null || gameKey == null) {
-            throw new RankingNotFoundException();
-        }
+            if (characterName == null || gameKey == null) {
+                throw new RankingNotFoundException();
+            }
 
-        if (currentScore != null && newScore > currentScore) {
+            if (currentScore != null && newScore > currentScore) {
+                zSetOperations.add(gameKey, characterName, newScore);
+
+                String createdAtString = createdAt.toString();
+                redisTemplate.opsForHash().put(gameKey + "date", characterName, createdAtString);
+                return;
+            }
+            if(currentScore != null && newScore < currentScore){
+                return;
+            }
+
             zSetOperations.add(gameKey, characterName, newScore);
 
             String createdAtString = createdAt.toString();
             redisTemplate.opsForHash().put(gameKey + "date", characterName, createdAtString);
-            return;
-        }
-        if(currentScore != null && newScore < currentScore){
-            return;
-        }
 
-        zSetOperations.add(gameKey, characterName, newScore);
-
-        String createdAtString = createdAt.toString();
-        redisTemplate.opsForHash().put(gameKey + "date", characterName, createdAtString);
+        }catch (RedisConnectionFailureException ex) {
+            throw new RedisConnectionFailException();
+        } catch (Exception ex) {
+            throw new RankingUpdateFailException();
+        }
 
     }
 
