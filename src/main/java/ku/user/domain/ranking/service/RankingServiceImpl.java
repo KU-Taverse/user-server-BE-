@@ -1,6 +1,7 @@
 package ku.user.domain.ranking.service;
 
 import ku.user.domain.ranking.dto.response.GetRankingResponse;
+import ku.user.domain.ranking.exception.RankingNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,6 +23,10 @@ public class RankingServiceImpl implements RankingService{
         ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
 
         Double currentScore = zSetOperations.score(gameKey, characterName);
+
+        if (characterName == null || gameKey == null) {
+            throw new RankingNotFoundException();
+        }
 
         if (currentScore != null && newScore > currentScore) {
             zSetOperations.add(gameKey, characterName, newScore);
