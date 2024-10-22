@@ -16,6 +16,7 @@ public enum ErrorCode {
     INVALID_RANKING_INPUT(HttpStatus.BAD_REQUEST, "R400", "잘못된 랭킹 입력 값입니다"),
     REDIS_CONNECTION_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "R501", "Redis 서버 연결에 실패하였습니다"),
     RANKING_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "R502", "랭킹 업데이트에 실패하였습니다"),
+    RANKING_GET_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "R503", "랭킹 조회 로직에서 문제가 발생하였습니다."),
 
 
     //item

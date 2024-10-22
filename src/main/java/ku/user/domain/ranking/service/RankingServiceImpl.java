@@ -1,6 +1,7 @@
 package ku.user.domain.ranking.service;
 
 import ku.user.domain.ranking.dto.response.GetRankingResponse;
+import ku.user.domain.ranking.exception.RankingGetFailException;
 import ku.user.domain.ranking.exception.RankingNotFoundException;
 import ku.user.domain.ranking.exception.RankingUpdateFailException;
 import ku.user.domain.ranking.exception.RedisConnectionFailException;
@@ -58,11 +59,15 @@ public class RankingServiceImpl implements RankingService{
 
 
     public List<GetRankingResponse> getTopRankers(String gameKey, int n) {
-        ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
-        Set<Object> ranking = zSetOperations.reverseRange(gameKey, 0, n - 1);
         List<GetRankingResponse> response = new ArrayList<>();
+        try{
+            ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
+            Set<Object> ranking = zSetOperations.reverseRange(gameKey, 0, n - 1);
 
-        if (ranking != null) {
+            if (ranking == null || ranking.isEmpty()) {
+                throw new RankingNotFoundException();
+            }
+
             for (Object o : ranking) {
                 String characterName = (String) o;  // userId로 캐스팅
                 Double score = zSetOperations.score("rhythms", characterName);
@@ -76,7 +81,12 @@ public class RankingServiceImpl implements RankingService{
                 GetRankingResponse rankingDTO = new GetRankingResponse(characterName, score.intValue(),createdAt);
                 response.add(rankingDTO);
             }
+        }catch (RedisConnectionFailureException e) {
+            throw new RedisConnectionFailException();
+        } catch (Exception e) {
+            throw new RankingGetFailException();
         }
+
         return response;
     }
 
