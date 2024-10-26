@@ -70,7 +70,7 @@ public class RankingServiceImpl implements RankingService{
 
             for (Object o : ranking) {
                 String characterName = (String) o;  // userId로 캐스팅
-                Double score = zSetOperations.score("rhythms", characterName);
+                Double score = zSetOperations.score(gameKey, characterName);
 
                 String createdAtString = (String) redisTemplate.opsForHash().get("rhythms" + "date", characterName);
                 LocalDateTime createdAt = null;

@@ -6,6 +6,8 @@ import ku.user.domain.ranking.domain.Status;
 import ku.user.domain.ranking.domain.SteppingStonesScore;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class SaveSteppingRequest {
     @NotBlank(message = "닉네임은 필수 항목")
@@ -22,6 +24,7 @@ public class SaveSteppingRequest {
                 .nickName(saveSteppingRequest.getNickName())
                 .score(saveSteppingRequest.getScore())
                 .coin(saveSteppingRequest.getCoin())
+                .createdAt(LocalDateTime.now())
                 .status(Status.ACTIVE)
                 .build();
 
