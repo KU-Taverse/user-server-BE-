@@ -10,6 +10,7 @@ import ku.user.domain.inventory.service.InventoryService;
 import ku.user.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +29,9 @@ public class InventoryController {
         return new ApiResponse<>(true, getInventoryResponse, null);
     }
 
-    @PostMapping("/inventorys")
-    public ApiResponse<PostItemResponse> PostItem(@RequestParam String email, @RequestBody PostItemRequest postItemRequest) {
+    @PostMapping(value = "/inventorys",
+    consumes =  MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ApiResponse<PostItemResponse> PostItem(@RequestParam String email, PostItemRequest postItemRequest) {
         Inventory inventory = inventoryService.buyItem(email, postItemRequest.getItemIndex());
         PostItemResponse postItemResponse = PostItemResponse.toDto(inventory);
         return new ApiResponse<>(true, null, null);
