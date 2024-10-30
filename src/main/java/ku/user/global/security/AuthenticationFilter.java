@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ku.user.domain.user.infrastructure.entity.UserStatus;
 import ku.user.global.response.ApiResponse;
 import ku.user.domain.user.domain.RequestLogin;
 import ku.user.domain.user.domain.UserDto;
@@ -103,8 +104,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512,env.getProperty("token.secret"))
                 .compact();
 
+
+        boolean isAdmin = UserStatus.ADMIN.equals(userEntity.getStatus());
+
         response.addHeader("token",token);
         response.addHeader("email",userDetails.getEmail());
+        if(isAdmin) response.addHeader("admin", String.valueOf(isAdmin));
+        // 여기에 관리자 로그인 확인?
         apiResponse = new ApiResponse<>(true, "로그인 성공", null);
 
         String jsonResponse = objectMapper.writeValueAsString(apiResponse);
