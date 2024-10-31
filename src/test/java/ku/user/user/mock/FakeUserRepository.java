@@ -2,6 +2,7 @@ package ku.user.user.mock;
 
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.infrastructure.repository.UserRepository;
+import org.apache.catalina.User;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -53,5 +54,10 @@ public class FakeUserRepository implements UserRepository {
     @Override
     public boolean existNickname(String nickname) {
         return data.stream().anyMatch(item -> item.getNickname().equals(nickname));
+    }
+
+    @Override
+    public List<UserEntity> findAll(){
+        return data;
     }
 }
