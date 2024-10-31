@@ -31,6 +31,10 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
+    @Column(name = "accountStatus")
+    @Enumerated(EnumType.STRING)
+    private UserAccountStatus accountStatus;
+
     @Column(name = "last_login_at")
     LocalDateTime lastLoginAt;
 
@@ -42,6 +46,7 @@ public class UserEntity {
         this.lastLoginAt = lastLoginAt;
         this.password = password != null ? new Password(password, Clock.systemDefaultZone()) : new Password("",Clock.systemDefaultZone()); // 빈 문자열로 초기화
         this.status = UserStatus.GENERAL;
+        this.accountStatus = UserAccountStatus.RUN;
     }
 
     public static UserEntity createInstance() {

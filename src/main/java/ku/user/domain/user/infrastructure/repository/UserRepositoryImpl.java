@@ -4,6 +4,7 @@ import ku.user.domain.user.infrastructure.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -44,5 +45,10 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public void delete(UserEntity userEntity) {
         userJpaRepository.delete(userEntity);
+    }
+
+    @Override
+    public List<UserEntity> findAll() {
+        return userJpaRepository.findAll();
     }
 }
