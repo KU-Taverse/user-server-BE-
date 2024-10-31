@@ -1,11 +1,13 @@
 package ku.user.domain.user.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import ku.user.domain.inventory.dao.InventoryRepository;
 import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.user.domain.CreateUser;
 import ku.user.domain.user.domain.UpdateUser;
 import ku.user.domain.user.domain.UserDto;
+import ku.user.domain.user.infrastructure.entity.UserAccountStatus;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.infrastructure.repository.UserRepository;
 import ku.user.domain.user.service.exception.ResourceNotFoundException;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -103,5 +106,21 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<UserEntity> getUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void banUser(Long userId) {
+        // 변경 예정
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User를 찾을 수 없습니다: " + userId));
+
+        if (user.getAccountStatus().equals(UserAccountStatus.RUN)) {
+            user.setAccountStatus(UserAccountStatus.STOP);
+        } else {
+            user.setAccountStatus(UserAccountStatus.RUN);
+        }
+
+        userRepository.save(user);
     }
 }

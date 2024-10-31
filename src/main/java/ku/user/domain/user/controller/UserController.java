@@ -22,11 +22,6 @@ import java.util.stream.Collectors;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("")
-    public String loginView() {
-        return "/login2";
-    }
-
     @PostMapping("/sign")
     public ApiResponse<String> sign(@RequestBody CreateUser createUser){
         UserEntity userEntity = userService.create(createUser);
@@ -63,4 +58,11 @@ public class UserController {
 
         return userResponses;
     }
+
+    // 밴하기
+    @PostMapping("/user/ban/{userId}")
+    public void banUser(@PathVariable Long userId){
+        userService.banUser(userId);
+    }
+
 }

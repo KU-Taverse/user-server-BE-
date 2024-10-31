@@ -20,6 +20,8 @@ public interface UserService extends UserDetailsService {
 
     List<UserEntity> getUsers();
 
+    void banUser(Long userId);
+
 
     // 비밀번호 찾기 -> 아마 이거는 찾기보다는 재설정이 맞을거 같음 (메일을 보낸다면 MailSender 사용해야함)
 
