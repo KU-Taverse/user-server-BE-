@@ -3,6 +3,7 @@ package ku.user.domain.user.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ku.user.domain.user.domain.CreateUser;
+import ku.user.domain.user.domain.GetUsersResponse;
 import ku.user.domain.user.service.UserService;
 import ku.user.global.response.ApiResponse;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
@@ -11,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -46,5 +50,17 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUser(@RequestBody Long id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));
+    }
+
+
+    // 유저 정보 가져오기
+    @GetMapping("/users")
+    public List<GetUsersResponse> getUsers(){
+        List<UserEntity> userEntities = userService.getUsers();
+        List<GetUsersResponse> userResponses = userEntities.stream()
+                .map(GetUsersResponse::fromEntity) // 정적 메서드 사용
+                .toList();
+
+        return userResponses;
     }
 }

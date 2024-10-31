@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -97,5 +98,10 @@ public class UserServiceImpl implements UserService{
             throw new UsernameNotFoundException(email);
 
         return UserDto.from(user);
+    }
+
+    @Override
+    public List<UserEntity> getUsers() {
+        return userRepository.findAll();
     }
 }
