@@ -6,6 +6,8 @@ import ku.user.domain.user.domain.UserDto;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 public interface UserService extends UserDetailsService {
     UserEntity create(CreateUser createUserDto);
     void login();
@@ -16,8 +18,13 @@ public interface UserService extends UserDetailsService {
 
     UserDto getUserDetailsByEmail(String userName);
 
+    List<UserEntity> getUsers();
+
+    void banUser(Long userId);
+
 
     // 비밀번호 찾기 -> 아마 이거는 찾기보다는 재설정이 맞을거 같음 (메일을 보낸다면 MailSender 사용해야함)
 
     // 아이디 찾기
+
 }
