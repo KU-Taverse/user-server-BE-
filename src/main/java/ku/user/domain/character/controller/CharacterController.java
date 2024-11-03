@@ -9,7 +9,11 @@ import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.service.InventoryService;
 import ku.user.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,5 +60,15 @@ public class CharacterController {
         return new ApiResponse<>(true, deleteCharacterResponse, null);
     }
 
+    // 캐릭터 정보 가져오기(캐릭터 이름, 유저 이메일, 성별, 돈, 인벤토리?)
+    @GetMapping("/characterList")
+    public List<FindAllCharactersResponse> findAllCharacters(){
+        List<Character> characters = characterService.findAll();
 
+        return characters.stream()
+                .map(character -> {
+                    Inventory inventory = inventoryService.findByCharacterId(character.getId());
+                    return FindAllCharactersResponse.toDto(inventory, character);
+                }).collect(Collectors.toList());
+    }
 }

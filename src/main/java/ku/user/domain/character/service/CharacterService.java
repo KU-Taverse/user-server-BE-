@@ -14,6 +14,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -120,4 +122,15 @@ public class CharacterService {
         character.pay(price);
         return character;
     }
+
+    @Transactional(readOnly = true)
+    public List<Character> findAll(){
+        try{
+            return characterRepository.findAll();
+        }catch (Exception e){
+            // 현재는 빈 배열을 반환하게
+            return Collections.emptyList();
+        }
+    }
+
 }
