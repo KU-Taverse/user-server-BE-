@@ -10,6 +10,10 @@ public enum ErrorCode {
 
     //global
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"G500","서버 내부에서 에러가 발생하였습니다"),
+    INVALID_INPUT(HttpStatus.BAD_REQUEST,"G400","잘못된 입력입니다"),
+
+    //auth
+
 
     // ranking
     RANKING_NOT_FOUND(HttpStatus.NOT_FOUND, "R404", "랭킹 정보를 찾을 수 없습니다"),
