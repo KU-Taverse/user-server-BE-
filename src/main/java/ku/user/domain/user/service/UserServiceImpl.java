@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService{
         UserEntity userEntity = createUserDto.toEntity();
 
         // 이미 존재하는 이메일과 이름이라면 예외를 던져야함
-        if(userRepository.existEmail(userEntity.getEmail())) throw new UserExistsException("이미 존재하는 이메일");
-        if(userRepository.existNickname(userEntity.getNickname())) throw new UserExistsException("이미 존재하는 닉네임");
+        if(userRepository.existEmail(userEntity.getEmail())) throw new UserExistsException("이미 존재하는 이메일입니다");
+        if(userRepository.existNickname(userEntity.getNickname())) throw new UserExistsException("이미 존재하는 닉네임입니다");
 
         // 여기에 나중에 인증 과정을 넣을 수도 있음.
         userRepository.save(userEntity);
