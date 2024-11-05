@@ -14,6 +14,7 @@ public enum ErrorCode {
 
     //auth
     INVALID_USER_INPUT(HttpStatus.BAD_REQUEST,"A400","잘못된 입력입니다"),
+    USER_NOT_FOUND(HttpStatus.BAD_REQUEST,"A404","찾을 수 없는 유저입니다"),
 
     // ranking
     RANKING_NOT_FOUND(HttpStatus.NOT_FOUND, "R404", "랭킹 정보를 찾을 수 없습니다"),
