@@ -5,6 +5,6 @@ import ku.user.global.exception.ErrorCode;
 
 public class UserExistsException extends CustomException {
     public UserExistsException(String msg) {
-        super(msg, ErrorCode.INVALID_INPUT);
+        super(msg, ErrorCode.INVALID_USER_INPUT);
     }
 }

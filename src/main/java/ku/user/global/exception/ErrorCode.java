@@ -13,7 +13,7 @@ public enum ErrorCode {
     INVALID_INPUT(HttpStatus.BAD_REQUEST,"G400","잘못된 입력입니다"),
 
     //auth
-
+    INVALID_USER_INPUT(HttpStatus.BAD_REQUEST,"A400","잘못된 입력입니다"),
 
     // ranking
     RANKING_NOT_FOUND(HttpStatus.NOT_FOUND, "R404", "랭킹 정보를 찾을 수 없습니다"),
