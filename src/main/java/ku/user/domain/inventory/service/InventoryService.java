@@ -8,6 +8,7 @@ import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.domain.InventoryItem;
 import ku.user.domain.inventory.exception.AlreadyPurchasedItemException;
 import ku.user.domain.inventory.exception.NoPurchasedItemException;
+import ku.user.domain.inventory.exception.NotFoundInventoryException;
 import ku.user.domain.shop.domain.Item;
 import ku.user.domain.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class InventoryService {
     public Inventory findByCharacterId(Long characterId) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findByCharacterId(characterId);
         if (inventoryOptional.isEmpty())
-            throw new RuntimeException("해당하는 인벤토리가 없습니다.");
+            throw new NotFoundInventoryException();
         return inventoryOptional.get();
     }
 
