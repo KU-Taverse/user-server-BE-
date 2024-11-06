@@ -26,6 +26,9 @@ public enum ErrorCode {
     //quest
     QUEST_NOT_FOUND(HttpStatus.NOT_FOUND,"Q404","퀘스트를 찾을 수 없습니다"),
 
+    //character
+    INVALID_CHARACTER_INPUT(HttpStatus.BAD_REQUEST,"C400","잘못된 입력입니다"),
+    CONFLICT_CHARACTER_RESOURCE(HttpStatus.CONFLICT,"C409","캐릭터 리소스 충돌이 발생하였습니다"),
 
     //item
     ALREADY_PURCHASED_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"I501","이미 구매한 아이템입니다"),

@@ -2,8 +2,10 @@ package ku.user.domain.character.service;
 
 import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
+import ku.user.domain.character.exception.AlreadyExistCharacterException;
 import ku.user.domain.character.exception.CharacterCreateException;
 import ku.user.domain.character.exception.CurrentMoneyLeakException;
+import ku.user.domain.character.exception.DuplicateNicknameException;
 import ku.user.domain.inventory.dao.InventoryRepository;
 import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.service.InventoryService;
@@ -28,16 +30,13 @@ public class CharacterService {
 
     @Transactional
     public Character save(Character character) {
-        try {
+            validateSave(character);
             return characterRepository.save(character);
-        } catch (DataAccessException e) {
-            throw new CharacterCreateException();
-        }
     }
 
     /**
-     * 이에밀에 해당하는 유저의 캐릭터를 생성한다.
-     * 캐릭터에 해당하는 inventory를 조기화한다.
+     * 이에밀에 해당하는 유저의 캐릭터를 생성한다. 캐릭터에 해당하는 inventory를 조기화한다.
+     *
      * @param character
      * @param email
      * @return
@@ -60,16 +59,18 @@ public class CharacterService {
     @Transactional(readOnly = true)
     public Character findById(Long characterId) {
         Optional<Character> character = characterRepository.findById(characterId);
-        if (character.isEmpty())
+        if (character.isEmpty()) {
             throw new RuntimeException("해당하는 유저가 없습니다");
+        }
         return character.get();
     }
 
     @Transactional(readOnly = true)
     public Character findByUserId(Long userId) {
         Optional<Character> character = characterRepository.findByUserId(userId);
-        if (character.isEmpty())
+        if (character.isEmpty()) {
             throw new RuntimeException("해당하는 유저가 없습니다");
+        }
         return character.get();
     }
 
@@ -97,7 +98,7 @@ public class CharacterService {
     }
 
     @Transactional
-    public void deleteByEmail(String email){
+    public void deleteByEmail(String email) {
         Character character = findByEmail(email);
         delete(character.getId());
     }
@@ -124,13 +125,31 @@ public class CharacterService {
     }
 
     @Transactional(readOnly = true)
-    public List<Character> findAll(){
-        try{
+    public List<Character> findAll() {
+        try {
             return characterRepository.findAll();
-        }catch (Exception e){
+        } catch (Exception e) {
             // 현재는 빈 배열을 반환하게
             return Collections.emptyList();
         }
     }
 
+    private void validateSave(Character character) {
+        checkExistCharacter(character);
+        checkDuplicateNickName(character);
+    }
+
+    private void checkExistCharacter(Character character) {
+        characterRepository.findByUserId(character.getUserId())
+                .ifPresent(
+                        (findCharacter)->{
+                            throw new AlreadyExistCharacterException();
+                        });
+    }
+
+    public void checkDuplicateNickName(Character character) {
+        if (characterRepository.existsCharacterByNickname(character.getNickname())) {
+            throw new DuplicateNicknameException();
+        }
+    }
 }
