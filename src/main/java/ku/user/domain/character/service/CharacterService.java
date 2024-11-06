@@ -5,6 +5,7 @@ import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.exception.AlreadyExistCharacterException;
 import ku.user.domain.character.exception.CurrentMoneyLeakException;
 import ku.user.domain.character.exception.DuplicateNicknameException;
+import ku.user.domain.character.exception.NotFoundCharacterException;
 import ku.user.domain.inventory.dao.InventoryRepository;
 import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.inventory.service.InventoryService;
@@ -59,7 +60,7 @@ public class CharacterService {
     public Character findById(Long characterId) {
         Optional<Character> character = characterRepository.findById(characterId);
         if (character.isEmpty()) {
-            throw new RuntimeException("해당하는 유저가 없습니다");
+            throw new NotFoundCharacterException();
         }
         return character.get();
     }
@@ -68,7 +69,7 @@ public class CharacterService {
     public Character findByUserId(Long userId) {
         Optional<Character> character = characterRepository.findByUserId(userId);
         if (character.isEmpty()) {
-            throw new RuntimeException("해당하는 유저가 없습니다");
+            throw new NotFoundCharacterException();
         }
         return character.get();
     }
