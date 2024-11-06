@@ -3,7 +3,6 @@ package ku.user.domain.character.service;
 import ku.user.domain.character.dao.CharacterRepository;
 import ku.user.domain.character.domain.Character;
 import ku.user.domain.character.exception.AlreadyExistCharacterException;
-import ku.user.domain.character.exception.CharacterCreateException;
 import ku.user.domain.character.exception.CurrentMoneyLeakException;
 import ku.user.domain.character.exception.DuplicateNicknameException;
 import ku.user.domain.inventory.dao.InventoryRepository;
