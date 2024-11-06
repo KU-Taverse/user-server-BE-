@@ -4,6 +4,7 @@ import ku.user.domain.quest.dao.QuestRepository;
 import ku.user.domain.quest.dao.UserQuestRepository;
 import ku.user.domain.quest.domain.Quest;
 import ku.user.domain.quest.domain.UserQuest;
+import ku.user.domain.quest.exception.QuestNotFoundException;
 import ku.user.domain.quest.util.QuestUtil;
 import ku.user.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class QuestService {
     public Quest findQuestById(Long questId) {
         Optional<Quest> questOptional = questRepository.findById(questId);
         if (questOptional.isEmpty())
-            throw new RuntimeException("찾을 수 없는 퀘스트 입니다");
+            throw new QuestNotFoundException();
         return questOptional.get();
     }
 

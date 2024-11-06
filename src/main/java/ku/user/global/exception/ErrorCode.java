@@ -23,6 +23,9 @@ public enum ErrorCode {
     RANKING_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "R502", "랭킹 업데이트에 실패하였습니다"),
     RANKING_GET_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "R503", "랭킹 조회 로직에서 문제가 발생하였습니다."),
 
+    //quest
+    QUEST_NOT_FOUND(HttpStatus.NOT_FOUND,"Q404","퀘스트를 찾을 수 없습니다"),
+
 
     //item
     ALREADY_PURCHASED_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"I501","이미 구매한 아이템입니다"),
