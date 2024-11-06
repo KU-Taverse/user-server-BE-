@@ -34,8 +34,7 @@ public enum ErrorCode {
     //item
     ALREADY_PURCHASED_ERROR(HttpStatus.BAD_REQUEST,"I400","이미 구매한 아이템입니다."),
     NO_PURCHASED_ERROR(HttpStatus.FORBIDDEN,"I403","구매하지 않은 아이템입니다."),
-    INVENTORY_NOT_FOUND(HttpStatus.NOT_FOUND,"I400","인벤토리를 찾을 수 없습니다"),
-
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND,"I400","아이템을 찾을 수 없습니다."),
     ;
 
     private final HttpStatus httpStatus;
