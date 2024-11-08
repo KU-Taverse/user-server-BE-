@@ -7,7 +7,7 @@ import ku.user.domain.user.infrastructure.entity.UserStatus;
 import ku.user.domain.user.infrastructure.repository.UserRepository;
 import ku.user.domain.user.service.UserServiceImpl;
 import ku.user.user.mock.FakeUserRepository;
-import ku.user.domain.user.service.exception.ResourceNotFoundException;
+import ku.user.domain.user.service.exception.UserNotFoundException;
 import ku.user.domain.user.service.exception.UserExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,7 +94,7 @@ class UserServiceImplTest {
         // given
 
         // when
-        assertThrows(ResourceNotFoundException.class, () -> {
+        assertThrows(UserNotFoundException.class, () -> {
             userService.getById(2L);
         });
         // then
@@ -117,7 +117,7 @@ class UserServiceImplTest {
         // given
 
         // when
-        assertThrows(ResourceNotFoundException.class, () -> {
+        assertThrows(UserNotFoundException.class, () -> {
             userService.getByEmail("kamothi@naver.com");
         });
         // then

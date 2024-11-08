@@ -36,12 +36,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
 
+    //TODO 사용하는가
     @GetMapping("/test")
     public ResponseEntity<String> test(){
         return ResponseEntity.status(HttpStatus.OK).body("test");
     }
 
 
+    //TODO requestBody가 의도된 것인가
     @GetMapping("/user/{id}")
     public ResponseEntity<UserEntity> getUser(@RequestBody Long id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getById(id));

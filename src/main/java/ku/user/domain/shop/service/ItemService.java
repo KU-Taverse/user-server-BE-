@@ -2,6 +2,7 @@ package ku.user.domain.shop.service;
 
 import ku.user.domain.shop.dao.ItemRepository;
 import ku.user.domain.shop.domain.Item;
+import ku.user.domain.shop.exception.NotFoundItemException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class ItemService {
     public Item findById(Long itemId){
         Optional<Item> itemOptional = itemRepository.findById(itemId);
         if(itemOptional.isEmpty())
-            throw new RuntimeException("해당하는 아이템이 없습니다");
+            throw new NotFoundItemException();
         return itemOptional.get();
     }
     @Transactional

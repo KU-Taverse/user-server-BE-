@@ -2,15 +2,13 @@ package ku.user.domain.user.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import ku.user.domain.inventory.dao.InventoryRepository;
-import ku.user.domain.inventory.domain.Inventory;
 import ku.user.domain.user.domain.CreateUser;
 import ku.user.domain.user.domain.UpdateUser;
 import ku.user.domain.user.domain.UserDto;
 import ku.user.domain.user.infrastructure.entity.UserAccountStatus;
 import ku.user.domain.user.infrastructure.entity.UserEntity;
 import ku.user.domain.user.infrastructure.repository.UserRepository;
-import ku.user.domain.user.service.exception.ResourceNotFoundException;
+import ku.user.domain.user.service.exception.UserNotFoundException;
 import ku.user.domain.user.service.exception.UserExistsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -52,8 +49,8 @@ public class UserServiceImpl implements UserService{
         UserEntity userEntity = createUserDto.toEntity();
 
         // 이미 존재하는 이메일과 이름이라면 예외를 던져야함
-        if(userRepository.existEmail(userEntity.getEmail())) throw new UserExistsException("이미 존재하는 이메일");
-        if(userRepository.existNickname(userEntity.getNickname())) throw new UserExistsException("이미 존재하는 닉네임");
+        if(userRepository.existEmail(userEntity.getEmail())) throw new UserExistsException("이미 존재하는 이메일입니다");
+        if(userRepository.existNickname(userEntity.getNickname())) throw new UserExistsException("이미 존재하는 닉네임입니다");
 
         // 여기에 나중에 인증 과정을 넣을 수도 있음.
         userRepository.save(userEntity);
@@ -68,13 +65,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserEntity getById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", id));
+                .orElseThrow(() -> new UserNotFoundException("해당 id를 가진 유저를 찾을 수 없습니다."));
     }
 
     @Override
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User", email));
+                .orElseThrow(() -> new UserNotFoundException("해당 이메일을 가진 유저를 찾을 수 없습니다"));
     }
 
     @Override
